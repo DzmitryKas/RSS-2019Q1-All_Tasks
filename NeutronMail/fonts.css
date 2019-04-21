@@ -1,0 +1,127 @@
+@font-face{
+  font-family: 'Titillium_Web';  
+  src: url('assets/fonts/Titillium_Web/Titillium_Web.eot');  
+  src: url('assets/fonts/Titillium_Web/Titillium_Web.eot?iefix') format('eot'),  
+  /* url('assets/fonts/Titillium_Web/Titillium_Web.woff') format('woff'),   */
+  /* url('assets/fonts/Titillium_Web/Titillium_Web.ttf') format('truetype'),   */
+  url('assets/fonts/Titillium_Web/Titillium_Web.svg#webfont') format('svg');  
+  font-weight: bold;  
+  font-style: normal;  
+  }
+
+  @font-face{
+    font-family: 'Malaga_OT_Reg_Italic';  
+    src: url('assets/fonts/Malaga_OT_Reg_Italic/Malaga_OT_Reg_Italic.otf');  
+    src: url('assets/fonts/Malaga_OT_Reg_Italic/Malaga_OT_Reg_Italic.eot?iefix') format('eot'),  
+    /* url('assets/fonts/Malaga_OT_Reg_Italic/Malaga_OT_Reg_Italic.woff') format('woff'),   */
+    url('assets/fonts/Malaga_OT_Reg_Italic/Malaga_OT_Reg_Italic.ttf') format('truetype'),  
+    url('assets/fonts/Malaga_OT_Reg_Italic/Malaga_OT_Reg_Italic.svg#webfont') format('svg');  
+    font-weight: normal;  
+    font-style: normal;  
+    }
+  
+  @font-face {
+    font-family: 'fontello';
+    src: url('assets/icons/fontello.eot?60798711');
+    src: url('assets/icons/fontello.eot?60798711#iefix') format('embedded-opentype'),
+         url('assets/icons/fontello.woff2?60798711') format('woff2'),
+         url('assets/icons/fontello.woff?60798711') format('woff'),
+         url('assets/icons/fontello.ttf?60798711') format('truetype'),
+         url('assets/icons/fontello.svg?60798711#fontello') format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }  
+ 
+  /* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+  /* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+  /*
+  @media screen and (-webkit-min-device-pixel-ratio:0) {
+    @font-face {
+      font-family: 'fontello';
+      src: url('../font/fontello.svg?57789030#fontello') format('svg');
+    }
+  }
+  */
+   
+   [class^="icon-"]:before, [class*=" icon-"]:before {
+    font-family: "fontello";
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+   
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    margin-right: .2em;
+    text-align: center;
+    /* opacity: .8; */
+   
+    /* For safety - reset parent styles, that can break glyph codes*/
+    font-variant: normal;
+    text-transform: none;
+   
+    /* fix buttons height, for twitter bootstrap */
+    line-height: 1em;
+   
+    /* Animation center compensation - margins should be symmetric */
+    /* remove if not needed */
+    margin-left: .2em;
+   
+    /* you can be more comfortable with increased icons size */
+    /* font-size: 120%; */
+   
+    /* Font smoothing. That was taken from TWBS */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+   
+    /* Uncomment for 3D effect */
+    /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  }
+   
+  .icon-login:before { content: '\e800'; } /* '' */
+  .icon-googleplay:before { content: '\e801'; } /* '' */
+  .icon-twitter:before { content: '\f099'; } /* '' */
+  .icon-facebook:before { content: '\f09a'; } /* '' */
+  .icon-gplus:before { content: '\f0d5'; } /* '' */
+  .icon-upload-cloud:before { content: '\f0ee'; } /* '' */
+  .icon-dollar:before { content: '\f155'; } /* '' */
+  .icon-apple:before { content: '\f179'; } /* '' */
+
+  a.item-social {
+    
+    background: #676766;
+  }
+
+  .item-social {    
+    display: flex;
+    text-decoration: none;
+    width: 20px;
+    height: 20px;   
+    justify-content: center;
+    align-items: center;
+    margin-top: 18px;  
+    border-radius: 3px;
+    color: white;
+    font-size: 12px;
+    text-align: right;
+    
+   
+  }
+
+  .item-create {
+    display: flex;
+    text-decoration: none;
+    width: 47px;
+    height: 47px;   
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; 
+    background: #6f4882;
+    border-radius: 100px;
+  }
+
+  .buttons-create i {
+    background: #6f4882;
+    color: #ffffff;
+    font-size: 25px;
+  }
