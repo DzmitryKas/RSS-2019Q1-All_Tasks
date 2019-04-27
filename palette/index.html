@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,42 @@
   <title>palette</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="reset.css">
-  <script src="main.js"></script>  
+  <link rel="stylesheet" href="fonts.css">
+  <script src="main.js"></script>
 </head>
+
 <body>
-  
+  <header class="header">
+    <div>
+      <i class="icon-menu"></i>
+      <p>CodeJam-Pallette</p>
+    </div>
+    <i class="icon-ellipsis-vert"></i>
+  </header>
+  <div class="menu">
+    <button class="paint-bucket"><i class="icon-brush"></i><span>Paint bucket</span></button>
+    <button class="choose-color"><i class="icon-eyedropper"></i><span>Choose color</span></button>
+    <button class="move"><i class="icon-move"></i><span>Move</span></button>
+    <button class="transform"><i class="icon-exchange"></i><span>Transform</span></button>
+  </div>
+  <div class="menu-color">
+    <button class="cuttent-color"><div class="circle-current"></div><span>Current color</span></button>
+    <button class="prev-color"><div class="circle-prev"></div><span>Prev color</span></button>
+    <button class="red"><div class="circle-red"></div><span>red</span></button>
+    <button class="blue"><div class="circle-blue"></div><span>blue</span></button>
+  </div>
+  <div class="canvas">
+    <div class="figure"></div>
+    <div class="figure"></div>
+    <div class="figure"></div>
+    <div class="figure"></div>
+    <div class="figure"></div>
+    <div class="figure"></div>
+    <div class="figure"></div>
+    <div class="figure"></div>
+    <div class="figure"></div>
+  </div>
+
 </body>
+
 </html>

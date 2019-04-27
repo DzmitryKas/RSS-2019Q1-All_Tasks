@@ -1,0 +1,115 @@
+.header {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #cccccc;
+}
+
+.header div {
+  padding-left: 10px;  
+  display: flex;
+}  
+
+.icon-ellipsis-vert  {
+  padding-right: 10px;
+}
+
+.header p {
+  padding-left: 20px;  
+}
+
+.canvas {
+  width: 609px;
+  height: 609px;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  justify-content: center;
+  grid-gap: 3px;
+  margin: 50px auto; 
+}
+
+.canvas div {
+  background-color: #cccccc;
+}
+
+.menu {
+  width: 200px;
+  height: 220px;
+  position: absolute;
+  margin-left: 25px;
+  margin-top: 50px;
+  background-color: #cccccc;
+}
+
+.menu-color {
+  width: 200px;
+  height: 220px;
+  position: absolute;
+  margin-left: 25px;
+  margin-top: 320px;
+  background-color: #cccccc;
+}
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.menu button {
+  text-decoration: none;
+  text-align: start;
+  padding-left: 20px; 
+}
+
+.menu span {  
+  padding-left: 10px; 
+}
+
+button {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+}
+
+.menu-color {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.menu-color button {
+  text-decoration: none;
+  text-align: start;
+  padding-left: 20px; 
+}
+
+.menu-color span {  
+  padding-left: 10px; 
+}
+
+.circle-red, .circle-current, .circle-prev, .circle-blue  {
+	width: 10px;
+	height: 10px;	
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+  border-radius: 5px;
+  display:inline-block;
+  border: 1px solid black;
+}
+
+.circle-red {
+  background: red;
+}
+
+.circle-current {
+
+}
+
+.circle-blue {
+  background: blue;
+}
