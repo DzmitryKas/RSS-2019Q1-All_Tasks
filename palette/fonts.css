@@ -61,3 +61,14 @@
 .icon-move:before { content: '\f047'; } /* '' */
 .icon-menu:before { content: '\f0c9'; } /* '' */
 .icon-ellipsis-vert:before { content: '\f142'; } /* '' */
+
+@font-face{
+  font-family: 'Dosis-Regular';  
+  src: url('assets/fonts/Dosis-Regular.otf');  
+  src: url('assets/fonts/Dosis-Regular.eot?iefix') format('eot'),  
+  url('assets/fonts/Dosis-Regular.woff') format('woff'),  
+  url('assets/fonts/Dosis-Regular.ttf') format('truetype'),  
+  url('assets/fonts/Dosis-Regular.svg#webfont') format('svg');  
+  font-weight: normal;  
+  font-style: normal;  
+  }

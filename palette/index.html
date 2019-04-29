@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="reset.css">
   <link rel="stylesheet" href="fonts.css">
-  <script src="main.js"></script>
+  
 </head>
 
 <body>
@@ -22,9 +22,9 @@
   </header>
   <div class="menu">
     <button class="paint-bucket"><i class="icon-brush"></i><span>Paint bucket</span></button>
-    <button class="choose-color"><i class="icon-eyedropper"></i><span>Choose color</span></button>
+    <button id="choose-color"><i class="icon-eyedropper"></i><span>Choose color</span></button>
     <button class="move"><i class="icon-move"></i><span>Move</span></button>
-    <button class="transform"><i class="icon-exchange"></i><span>Transform</span></button>
+    <button id="transform"><i class="icon-exchange"></i><span>Transform</span></button>
   </div>
   <div class="menu-color">
     <button class="cuttent-color"><div class="circle-current"></div><span>Current color</span></button>
@@ -32,18 +32,18 @@
     <button class="red"><div class="circle-red"></div><span>red</span></button>
     <button class="blue"><div class="circle-blue"></div><span>blue</span></button>
   </div>
-  <div class="canvas">
-    <div class="figure"></div>
-    <div class="figure"></div>
-    <div class="figure"></div>
-    <div class="figure"></div>
-    <div class="figure"></div>
-    <div class="figure"></div>
-    <div class="figure"></div>
-    <div class="figure"></div>
-    <div class="figure"></div>
+  <div id="canvas">
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
   </div>
-
+  <script src="main.js"></script>
 </body>
 
 </html>
