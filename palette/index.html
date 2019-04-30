@@ -20,30 +20,51 @@
     </div>
     <i class="icon-ellipsis-vert"></i>
   </header>
-  <div class="menu">
-    <button class="paint-bucket"><i class="icon-brush"></i><span>Paint bucket</span></button>
-    <button id="choose-color"><i class="icon-eyedropper"></i><span>Choose color</span></button>
-    <button class="move"><i class="icon-move"></i><span>Move</span></button>
-    <button id="transform"><i class="icon-exchange"></i><span>Transform</span></button>
-  </div>
-  <div class="menu-color">
-    <button class="cuttent-color"><div class="circle-current"></div><span>Current color</span></button>
-    <button class="prev-color"><div class="circle-prev"></div><span>Prev color</span></button>
-    <button class="red"><div class="circle-red"></div><span>red</span></button>
-    <button class="blue"><div class="circle-blue"></div><span>blue</span></button>
-  </div>
+  <section class="menu">
+    <button id="paint-bucket"><i class="icon-brush"></i><span>Paint bucket (p)</span></button>
+    <button id="choose-color"><i class="icon-eyedropper"></i><span>Choose color (c)</span></button>
+    <button id="move"><i class="icon-move"></i><span>Move (m)</span></button>
+    <button id="transform"><i class="icon-exchange"></i><span>Transform (t)</span></button>
+  </section>
+  <section class="menu-color">
+    <button id="current-color"><div id="circle-current"></div><span>Current color</span></button>
+    <button id="prev-color"><div id="circle-prev"></div><span>Prev color</span></button>
+    <button id="red"><div id="circle-red"></div><span>red</span></button>
+    <button id="blue"><div id="circle-blue"></div><span>blue</span></button>   
+    <button id="green"><div id="circle-green"></div><span>green</span></button>
+    <button id="black"><div id="circle-black"></div><span>black</span></button> 
+  </section>
   <div id="canvas">
-    <div class="square"></div>
-    <div class="square"></div>
-    <div class="square"></div>
-    <div class="square"></div>
-    <div class="square"></div>
-    <div class="square"></div>
-    <div class="square"></div>
-    <div class="square"></div>
-    <div class="square"></div>
-  </div>
-  <script src="main.js"></script>
+    <div>
+        <div id="square"></div>
+    </div>    
+    <div>
+        <div id="square"></div>
+    </div>    
+    <div>
+        <div id="square"></div>
+    </div>    
+    <div>
+        <div id="square"></div>
+    </div>    
+    <div>
+        <div id="square"></div>
+    </div>    
+    <div>
+        <div id="square"></div>
+    </div>    
+    <div>
+        <div id="square"></div>
+    </div>    
+    <div>
+        <div id="square"></div>
+    </div>    
+    <div>
+        <div id="square"></div> 
+    </div>    
+    </div>     
+  <script src="main.js" draggable='true'></script>
+  
 </body>
 
 </html>
