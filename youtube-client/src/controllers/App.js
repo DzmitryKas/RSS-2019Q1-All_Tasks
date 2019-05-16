@@ -16,12 +16,11 @@ export default class App {
   // }
 
   async start() {
-    const view = new AppView();
-    view.render();
     const model = new AppModel(this.state);
     const data = await model.getClipNames();
     console.log(await data);
     const view1 = new AppView(data);
+    view1.render();
     view1.render2();
   }
 }

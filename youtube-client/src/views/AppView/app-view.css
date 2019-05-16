@@ -42,6 +42,7 @@ ul li {
   flex-direction: row;
   margin-top: 30px;
   transition: 0.6s;
+  justify-content: center;
 }
 
 .box {
@@ -89,6 +90,21 @@ p.new-description-info {
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-all;
+}
+
+/* ANIMATION */
+.-swipe-left {
+  transform: translate(-100%);
+  opacity: 0;
+}
+
+.-swipe-right {
+  transform: translate(100%);
+  opacity: 0;
+}
+
+.content-wrapper .-visible {
+  opacity: 1;
 }
 
 @media screen and (max-width: 768px) {
