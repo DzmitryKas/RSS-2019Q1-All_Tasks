@@ -3,38 +3,6 @@ export default class AppView {
     this.itemsVideo = itemsVideo;
   }
 
-  render() {
-    const wrapper = document.createElement('div');
-    wrapper.className = 'wrapper';
-    document.body.appendChild(wrapper);
-
-    const searchWrapper = document.createElement('form');
-    searchWrapper.className = 'search-wrapper';
-    wrapper.appendChild(searchWrapper);
-
-    const search = document.createElement('input');
-    search.type = 'text';
-    search.className = 'input-field';
-    search.setAttribute('onChange', '');
-    searchWrapper.appendChild(search);
-
-    const btnInputSearch = document.createElement('button');
-    btnInputSearch.className = 'btn-input-search';
-    btnInputSearch.textContent = 'Search';
-    searchWrapper.appendChild(btnInputSearch);
-
-    console.log('this title appView 1', this.itemsVideo);
-
-
-
-    btnInputSearch.onclick = (e) => {
-      const input = document.querySelector('.input-search').value;
-      e.preventDefault();
-      console.log('input', input);
-      return input;
-    };
-  }
-
   render2() {
     let currentCountVideoOnPage = 10;
     const offsetPage = 0;
@@ -61,26 +29,8 @@ export default class AppView {
       return currentCountVideoOnPage;
     };
 
-    countVideo();
-    function renderMarkupVideoIdMini(itemsVideo) {
-      for (let i = 0; i < currentCountVideoOnPage; i += 1) {
-        // console.log('itemsVideo', itemsVideo[i]);
-        createVideoMiniItem(itemsVideo[i]);
-      }
-    }
-
-    renderMarkupVideoIdMini(this.itemsVideo);
-
     function createVideoMiniItem(item) {
       //       console.log(item);
-      const main = document.createElement('main');
-      main.className = 'main';
-      document.body.appendChild(main);
-
-      const content = document.createElement('section');
-      content.className = 'content-wrapper';
-      main.appendChild(content);
-
       const section = document.querySelector('.content-wrapper');
       const box = document.createElement('div');
       box.className = 'box';
@@ -109,20 +59,15 @@ export default class AppView {
       newAuthor.textContent = `channel Title: ${item.snippet.channelTitle}`;
       videoMiniItemInfo.appendChild(newAuthor);
 
-      // const newViewCount = document.createElement('p');
-      // newViewCount.className = 'viewCountInfo';
-      // newViewCount.textContent = `view Count: ${item.statistics.viewCount}`;
-      // videoMiniItemInfo.appendChild(newViewCount);
+      const newViewCount = document.createElement('p');
+      newViewCount.className = 'viewCountInfo';
+      newViewCount.textContent = `view Count: ${item.statistics.viewCount}`;
+      videoMiniItemInfo.appendChild(newViewCount);
 
       const newDescription = document.createElement('p');
       newDescription.className = 'new-description-info';
       newDescription.textContent = item.snippet.description;
       videoMiniItemInfo.appendChild(newDescription);
-
-      const newPublishedDate = document.createElement('p');
-      newPublishedDate.className = 'published-date-info';
-      newPublishedDate.textContent = `published Date: ${getPrettyDate(item.snippet.publishedAt)}`;
-      videoMiniItemInfo.appendChild(newPublishedDate);
 
       function getPrettyDate(timestamp) {
         const date = new Date(timestamp);
@@ -133,112 +78,52 @@ export default class AppView {
         };
         return date.toLocaleString('ru', options);
       }
+
+      const newPublishedDate = document.createElement('p');
+      newPublishedDate.className = 'published-date-info';
+      newPublishedDate.textContent = `published Date: ${getPrettyDate(item.snippet.publishedAt)}`;
+      videoMiniItemInfo.appendChild(newPublishedDate);
     }
-    // ИЗМЕНЕНИЕ КОЛИЧЕСТВА ВИДЕО НА СТРАНИЦЕ В ЗАВИСИМОСТИ ОТ ШИРИНЫ БРАУЗЕРА
-    const changeVideoCount = () => {
-      const tempCur = currentCountVideoOnPage;
-      const newCountVideoOnPage = countVideo();
-      const dif = newCountVideoOnPage - tempCur;
 
-      if (dif <= 0) {
-        for (let i = 0, len = Math.abs(dif); i < len; i += 1) {
-          document.querySelector('.content-wrapper').lastChild.remove();
-        }
-      } else {
-        for (let i = 0; i < dif; i += 1) {
-          createVideoMiniItem(this.itemsVideo[tempCur + offsetPage + i], tempCur + i);
-        }
+    countVideo();
+    function renderMarkupVideoIdMini(itemsVideo) {
+      for (let i = 0; i < itemsVideo.length; i += 1) {
+        // console.log('itemsVideo', itemsVideo[i]);
+        createVideoMiniItem(itemsVideo[i]);
       }
-    };
-    window.addEventListener('resize', changeVideoCount);
+    }
 
-    // УДАЛЕНИЕ ВИДЕО СО СТРАНИЦЫ ПОСЛЕ НОВОГО ПОИСКА
-    const main = () => document.querySelector('.main');
-    const refreshContainer = () => {
-      if (main()) {
-        main().remove();
-      }
-      countVideo();
-      createVideoMiniItem();
-    };
+    renderMarkupVideoIdMini(this.itemsVideo);
 
-    // создание блоков и заполнение контентом при листании страниц
-    const fillPrevNextPage = () => {
-      for (let i = offsetPage; i < offsetPage + currentCountVideoOnPage; i += 1) {
-        createVideoMiniItem(this.itemsVideo[i], i - offsetPage);
-      }
-    };
+    const content = document.querySelector('.content-wrapper');
+    console.log('content.appendChild2', content.childElement);
 
-    // следующая страница из кэша
-    const nextPage = () => {
-      // const remaringPages = this.itemsVideo.length - offsetPage - currentCountVideoOnPage;
-      // if (remaringPages < currentCountVideoOnPage * bufferPagesIndex) {
-      //   // getYoutubeArrVideoId();
-      // }
-      refreshContainer();
-      offsetPage += currentCountVideoOnPage;
-      fillPrevNextPage();
-    };
+    const slider = document.querySelector('.content-wrapper');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
 
-    // предыдущая страница из кэша
-    const prevPage = () => {
-      refreshContainer();
-      offsetPage -= currentCountVideoOnPage;
-      fillPrevNextPage();
-    };
-
-    // действие при отпускании тача или мыши
-    let xDown = null;
-    const actionEnd = function mouseOrTouchEndAction(e) {
-      // this.itemsVideo.length = 0;
-      if (document.getSelection().toString().length > 0) {
-        return;
-      }
-      let xUp = null;
-      if (e.type === 'mouseup') {
-        xUp = e.clientX;
-      } else if (e.type === 'touchend') {
-        xUp = e.changedTouches[0].clientX;
-      }
-      const xDiff = xDown - xUp;
-      if (Math.abs(xDiff) > minLengthForSwipe) {
-        if (xDiff < 0) {
-          if (offsetPage <= 0) {
-            return;
-          }
-          videoListMini().classList.add('-swipe-right');
-          setTimeout(prevPage, 500);
-        } else {
-          if (this.itemsVideo.length === 0) {
-            return;
-          }
-          videoListMini().classList.add('-swipe-left');
-          setTimeout(nextPage, 500);
-        }
-      }
-      xDown = null;
-    };
-
-    // события по тач свайпу
-    document.body.addEventListener('touchstart', (e) => {
-      xDown = e.touches[0].clientX;
+    slider.addEventListener('mousedown', (e) => {
+      isDown = true;
+      slider.classList.add('active');
+      startX = e.pageX - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;
     });
-    document.body.addEventListener('touchend', actionEnd);
-
-    // события по мышь свайпу
-    document.body.addEventListener('mousedown', (e) => {
-      xDown = e.clientX;
+    slider.addEventListener('mouseleave', () => {
+      isDown = false;
+      slider.classList.remove('active');
     });
-    document.body.addEventListener('mouseup', actionEnd);
-
-    // события по нажатию на стрелки
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') {
-        prevPage();
-      }
-      if (e.key === 'ArrowRight') {
-        nextPage();
-      }
+    slider.addEventListener('mouseup', () => {
+      isDown = false;
+      slider.classList.remove('active');
+    });
+    slider.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - slider.offsetLeft;
+      const walk = (x - startX) * 3; // scroll-fast
+      slider.scrollLeft = scrollLeft - walk;
+      console.log('walk', walk);
     });
   }
 }
