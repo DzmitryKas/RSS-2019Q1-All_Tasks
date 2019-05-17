@@ -19,29 +19,24 @@ const btnInputSearch = document.createElement('button');
 btnInputSearch.className = 'btn-input-search';
 btnInputSearch.textContent = 'Search';
 searchWrapper.appendChild(btnInputSearch);
-
-const main = document.createElement('main');
-main.className = 'main';
-document.body.appendChild(main);
-
-const content = document.createElement('section');
-content.className = 'content-wrapper';
-main.appendChild(content);
-console.log(main.appendChild.length);
-
-// const mainn = document.querySelector('.content-wrapper');
-console.log('content.appendChild', content.childElementCount);
+const mainSection = () => document.querySelector('.content-wrapper');
 
 btnInputSearch.onclick = (e) => {
   const input = document.querySelector('.input-field').value;
   e.preventDefault();
-  if (content.childElementCount > 1) {
-    const elem = document.querySelector('.box');
-    elem.parentNode.removeChild(elem);
-    // content.childElement.remove();
+  if (mainSection()) {
+    mainSection().remove();
   }
-  console.log('input', input);
-  // mainn.remove();
+
+  const main = document.createElement('main');
+  main.className = 'main';
+  document.body.appendChild(main);
+
+  const content = document.createElement('section');
+  content.className = 'content-wrapper';
+  main.appendChild(content);
+
   const app = new App(input);
   app.start();
+  app.start2();
 };

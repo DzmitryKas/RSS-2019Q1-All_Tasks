@@ -13,14 +13,25 @@ export default class AppModel {
     // return data.items;
   }
 
-  async getClipId() {
-    const { url } = this.state;
+  async getClipId(pageToken) {
+    if (pageToken = undefined) {
+      pageToken = '';
+    }
+    const url = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyCr2_jA-WrNyFu4MA06m4o9y1j1Aqssr7M&type=video&part=snippet&maxResults=15&${pageToken}&q=${this.state}`;
     console.log('url', url);
     const responce = await fetch(url);
     const data = await responce.json();
-    console.log('data', data);
+    // console.log('pageToken', pageToken);
+    const clipsID = AppModel.extractClipId(data);
+    return clipsID;
+  }
 
-    return AppModel.extractClipId(data);
+  async getnextPageToken() {
+    const url = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyCr2_jA-WrNyFu4MA06m4o9y1j1Aqssr7M&type=video&part=snippet&maxResults=15&q=${this.state}`;
+    console.log('url', url);
+    const responce = await fetch(url);
+    const data = await responce.json();
+    return data.nextPageToken;
   }
 
   static extractClipInform(data2) {

@@ -30,7 +30,10 @@ export default class AppView {
     };
 
     function createVideoMiniItem(item) {
-      //       console.log(item);
+      function openVideo(id) {
+        window.open(`https://www.youtube.com/watch?v=${id}`, '_blank');
+      }
+
       const section = document.querySelector('.content-wrapper');
       const box = document.createElement('div');
       box.className = 'box';
@@ -52,6 +55,9 @@ export default class AppView {
       const newTitle = document.createElement('h3');
       newTitle.className = 'title-info';
       newTitle.textContent = item.snippet.title;
+      newTitle.addEventListener('click', () => {
+        openVideo(item.id);
+      });
       videoMiniItemInfo.appendChild(newTitle);
 
       const newAuthor = document.createElement('p');
@@ -123,6 +129,7 @@ export default class AppView {
       const x = e.pageX - slider.offsetLeft;
       const walk = (x - startX) * 3; // scroll-fast
       slider.scrollLeft = scrollLeft - walk;
+      console.log('pageYOffset', e.pageX);
       console.log('walk', walk);
     });
   }
