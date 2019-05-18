@@ -50,7 +50,7 @@ body {
 
 .content-wrapper {
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
   margin-top: 30px;
   transition: 0.6s;
   position: relative;
@@ -61,12 +61,14 @@ body {
   will-change: transform;
   user-select: none;
   cursor: pointer;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 .box {
   max-width: 320px;
   height: auto;
-  margin-right: 10px;
+  margin: 0 70px;
   border: 1px solid rgb(117, 117, 117);
   border-radius: 7px;
   background: #fafbfb

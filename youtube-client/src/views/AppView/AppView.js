@@ -3,7 +3,7 @@ export default class AppView {
     this.itemsVideo = itemsVideo;
   }
 
-  render2() {
+  render() {
     let currentCountVideoOnPage = 10;
     const offsetPage = 0;
     // const bufferPagesIndex = 3;
@@ -11,7 +11,7 @@ export default class AppView {
     const videoListMini = () => document.querySelector('.content-wrapper');
 
 
-    console.log('this title appView 2', this.itemsVideo.length);
+    // console.log('this title appView 2', this.itemsVideo.length);
 
 
     const countVideo = () => {
@@ -101,9 +101,6 @@ export default class AppView {
 
     renderMarkupVideoIdMini(this.itemsVideo);
 
-    const content = document.querySelector('.content-wrapper');
-    console.log('content.appendChild2', content.childElement);
-
     const slider = document.querySelector('.content-wrapper');
     let isDown = false;
     let startX;
@@ -129,8 +126,6 @@ export default class AppView {
       const x = e.pageX - slider.offsetLeft;
       const walk = (x - startX) * 3; // scroll-fast
       slider.scrollLeft = scrollLeft - walk;
-      console.log('pageYOffset', e.pageX);
-      console.log('walk', walk);
     });
   }
 }

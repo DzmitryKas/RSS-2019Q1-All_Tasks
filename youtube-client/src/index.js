@@ -19,7 +19,8 @@ const btnInputSearch = document.createElement('button');
 btnInputSearch.className = 'btn-input-search';
 btnInputSearch.textContent = 'Search';
 searchWrapper.appendChild(btnInputSearch);
-const mainSection = () => document.querySelector('.content-wrapper');
+const mainSection = () => document.querySelector('.main');
+
 
 btnInputSearch.onclick = (e) => {
   const input = document.querySelector('.input-field').value;
@@ -38,5 +39,12 @@ btnInputSearch.onclick = (e) => {
 
   const app = new App(input);
   app.start();
-  app.start2();
+  const section = document.querySelector('.content-wrapper');
+  section.onscroll = async () => {
+    if (section.scrollLeft + section.offsetWidth >= section.scrollWidth) {
+      let token = await app.start();
+      console.log('tokenindexxxxxxxxxxxx', token);
+      app.start(token);
+    }
+  };
 };

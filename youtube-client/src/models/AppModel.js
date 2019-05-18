@@ -14,24 +14,29 @@ export default class AppModel {
   }
 
   async getClipId(pageToken) {
-    if (pageToken = undefined) {
-      pageToken = '';
-    }
-    const url = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyCr2_jA-WrNyFu4MA06m4o9y1j1Aqssr7M&type=video&part=snippet&maxResults=15&${pageToken}&q=${this.state}`;
+    // if (pageToken = undefined) {
+    //   pageToken = '';
+    // }
+    console.log('pageToken', pageToken);
+    const url = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyC0-yuh1AFEKG05z2y7GXivfYvv1kjzTc0&type=video&part=snippet&maxResults=15&${pageToken}&q=${this.state}`;
     console.log('url', url);
     const responce = await fetch(url);
     const data = await responce.json();
-    // console.log('pageToken', pageToken);
+    // const pageToken1 = `pageToken=${data.nextPageToken}`;
+    console.log('data', data);
     const clipsID = AppModel.extractClipId(data);
     return clipsID;
   }
 
-  async getnextPageToken() {
-    const url = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyCr2_jA-WrNyFu4MA06m4o9y1j1Aqssr7M&type=video&part=snippet&maxResults=15&q=${this.state}`;
+  async getnextPageToken(pageToke) {
+    console.log('Token1111111DOOOOOOO', pageToke);
+    const url = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyC0-yuh1AFEKG05z2y7GXivfYvv1kjzTc0&type=video&part=snippet&maxResults=15&${pageToke}&q=${this.state}`;
     console.log('url', url);
     const responce = await fetch(url);
     const data = await responce.json();
-    return data.nextPageToken;
+    const token = `pageToken=${data.nextPageToken}`;
+    console.log('Token1111111POOOOSSSSLLLEEE', token);
+    return token;
   }
 
   static extractClipInform(data2) {
@@ -41,7 +46,7 @@ export default class AppModel {
 
   async getClipInform(arrVideoId) {
     const strVideoId = arrVideoId.join(',');
-    const url2 = `https://www.googleapis.com/youtube/v3/videos?key=AIzaSyCr2_jA-WrNyFu4MA06m4o9y1j1Aqssr7M&id=${strVideoId}&part=snippet,statistics`;
+    const url2 = `https://www.googleapis.com/youtube/v3/videos?key=AIzaSyC0-yuh1AFEKG05z2y7GXivfYvv1kjzTc0&id=${strVideoId}&part=snippet,statistics`;
     // const { url } = this.state;
     console.log('strVideoId', strVideoId);
     const responce = await fetch(url2);
