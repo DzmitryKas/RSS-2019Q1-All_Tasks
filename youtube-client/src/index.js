@@ -20,13 +20,14 @@ btnInputSearch.className = 'btn-input-search';
 btnInputSearch.textContent = 'Search';
 searchWrapper.appendChild(btnInputSearch);
 const mainSection = () => document.querySelector('.main');
-
+const buttonSection = () => document.querySelector('.wrapper-button');
 
 btnInputSearch.onclick = (e) => {
   const input = document.querySelector('.input-field').value;
   e.preventDefault();
   if (mainSection()) {
     mainSection().remove();
+    buttonSection().remove();
   }
 
   const main = document.createElement('main');
@@ -37,14 +38,36 @@ btnInputSearch.onclick = (e) => {
   content.className = 'content-wrapper';
   main.appendChild(content);
 
+  const wrapperButton = document.createElement('div');
+  wrapperButton.className = 'wrapper-button';
+  document.body.appendChild(wrapperButton);
+
+  const prevButton = document.createElement('button');
+  prevButton.className = 'button-prev';
+  wrapperButton.appendChild(prevButton);
+
+  const prev = document.createElement('span');
+  prev.className = 'prev';
+  prevButton.appendChild(prev);
+  prev.innerHTML = 'prev';
+
+  const prevHidden = document.createElement('span');
+  prevHidden.className = 'prevHidden';
+  prevButton.appendChild(prevHidden);
+
+  const nextButton = document.createElement('button');
+  nextButton.className = 'button-next';
+  wrapperButton.appendChild(nextButton);
+
+  const next = document.createElement('span');
+  next.className = 'next';
+  nextButton.appendChild(next);
+  next.innerHTML = 'next';
+
+  const nextHidden = document.createElement('span');
+  nextHidden.className = 'nextHidden';
+  nextButton.appendChild(nextHidden);
+
   const app = new App(input);
   app.start();
-  const section = document.querySelector('.content-wrapper');
-  section.onscroll = async () => {
-    if (section.scrollLeft + section.offsetWidth >= section.scrollWidth) {
-      let token = await app.start();
-      console.log('tokenindexxxxxxxxxxxx', token);
-      app.start(token);
-    }
-  };
 };

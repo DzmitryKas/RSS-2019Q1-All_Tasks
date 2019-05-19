@@ -1,35 +1,13 @@
+/* eslint-disable prefer-destructuring */
 export default class AppView {
   constructor(itemsVideo) {
     this.itemsVideo = itemsVideo;
   }
 
   render() {
-    let currentCountVideoOnPage = 10;
-    const offsetPage = 0;
-    // const bufferPagesIndex = 3;
-    const minLengthForSwipe = 150;
-    const videoListMini = () => document.querySelector('.content-wrapper');
+    let count1 = 0;
 
-
-    // console.log('this title appView 2', this.itemsVideo.length);
-
-
-    const countVideo = () => {
-      const screenWidth = document.documentElement.clientWidth;
-      currentCountVideoOnPage = 4;
-      if (screenWidth <= 1400) {
-        currentCountVideoOnPage = 3;
-      }
-      if (screenWidth <= 1000) {
-        currentCountVideoOnPage = 2;
-      }
-      if (screenWidth <= 700) {
-        currentCountVideoOnPage = 1;
-      }
-      return currentCountVideoOnPage;
-    };
-
-    function createVideoMiniItem(item) {
+    function createVideoiItem(item) {
       function openVideo(id) {
         window.open(`https://www.youtube.com/watch?v=${id}`, '_blank');
       }
@@ -39,18 +17,18 @@ export default class AppView {
       box.className = 'box';
       section.appendChild(box);
 
-      const videoMiniItemImg = document.createElement('div');
-      videoMiniItemImg.className = 'block-video-item-img';
-      box.appendChild(videoMiniItemImg);
+      const videoItemImg = document.createElement('div');
+      videoItemImg.className = 'block-video-item-img';
+      box.appendChild(videoItemImg);
 
-      const videoMiniItemInfo = document.createElement('div');
-      videoMiniItemInfo.className = 'block-video-item-info';
-      box.appendChild(videoMiniItemInfo);
+      const videoItemInfo = document.createElement('div');
+      videoItemInfo.className = 'block-video-item-info';
+      box.appendChild(videoItemInfo);
 
       const newImg = document.createElement('img');
       newImg.className = 'video-img';
       newImg.src = item.snippet.thumbnails.medium.url;
-      videoMiniItemImg.appendChild(newImg);
+      videoItemImg.appendChild(newImg);
 
       const newTitle = document.createElement('h3');
       newTitle.className = 'title-info';
@@ -58,22 +36,22 @@ export default class AppView {
       newTitle.addEventListener('click', () => {
         openVideo(item.id);
       });
-      videoMiniItemInfo.appendChild(newTitle);
+      videoItemInfo.appendChild(newTitle);
 
       const newAuthor = document.createElement('p');
       newAuthor.className = 'author-info';
       newAuthor.textContent = `channel Title: ${item.snippet.channelTitle}`;
-      videoMiniItemInfo.appendChild(newAuthor);
+      videoItemInfo.appendChild(newAuthor);
 
       const newViewCount = document.createElement('p');
       newViewCount.className = 'viewCountInfo';
       newViewCount.textContent = `view Count: ${item.statistics.viewCount}`;
-      videoMiniItemInfo.appendChild(newViewCount);
+      videoItemInfo.appendChild(newViewCount);
 
       const newDescription = document.createElement('p');
       newDescription.className = 'new-description-info';
       newDescription.textContent = item.snippet.description;
-      videoMiniItemInfo.appendChild(newDescription);
+      videoItemInfo.appendChild(newDescription);
 
       function getPrettyDate(timestamp) {
         const date = new Date(timestamp);
@@ -88,18 +66,47 @@ export default class AppView {
       const newPublishedDate = document.createElement('p');
       newPublishedDate.className = 'published-date-info';
       newPublishedDate.textContent = `published Date: ${getPrettyDate(item.snippet.publishedAt)}`;
-      videoMiniItemInfo.appendChild(newPublishedDate);
+      videoItemInfo.appendChild(newPublishedDate);
+
+      const countVideo = () => {
+        if (count1 < 1) {
+          const screenWidth = document.documentElement.clientWidth;
+          const content = document.querySelector('.content-wrapper');
+          if (screenWidth > 1328) {
+            const margin = (content.offsetWidth - (4 * 322)) / 8;
+            box.style.marginRight = `${margin}px`;
+            box.style.marginLeft = `${margin}px`;
+          }
+
+          if (screenWidth <= 1328 && screenWidth > 992) {
+            const margin3Cards = (content.offsetWidth - (3 * 322)) / 6;
+            box.style.marginRight = `${margin3Cards}px`;
+            box.style.marginLeft = `${margin3Cards}px`;
+          }
+
+          if (screenWidth <= 992 && screenWidth > 650) {
+            const margin2Cards = (content.offsetWidth - (2 * 322)) / 4;
+            box.style.marginRight = `${margin2Cards}px`;
+            box.style.marginLeft = `${margin2Cards}px`;
+          }
+
+          if (screenWidth <= 650) {
+            const margin1Cards = (content.offsetWidth - 322) / 2;
+            box.style.marginRight = `${margin1Cards}px`;
+            box.style.marginLeft = `${margin1Cards}px`;
+          }
+        }
+      };
+      countVideo();
     }
 
-    countVideo();
-    function renderMarkupVideoIdMini(itemsVideo) {
-      for (let i = 0; i < itemsVideo.length; i += 1) {
-        // console.log('itemsVideo', itemsVideo[i]);
-        createVideoMiniItem(itemsVideo[i]);
+    function renderMarkupVideoId(item) {
+      for (let i = 0; i < item.length; i += 1) {
+        createVideoiItem(item[i]);
       }
     }
-
-    renderMarkupVideoIdMini(this.itemsVideo);
+    renderMarkupVideoId(this.itemsVideo);
+    count1 += 1;
 
     const slider = document.querySelector('.content-wrapper');
     let isDown = false;
@@ -116,9 +123,18 @@ export default class AppView {
       isDown = false;
       slider.classList.remove('active');
     });
-    slider.addEventListener('mouseup', () => {
-      isDown = false;
-      slider.classList.remove('active');
+    slider.addEventListener('mouseup', (e) => {
+      const x = e.pageX - slider.offsetLeft;
+      const walk = (x - startX) * 3;
+      if (walk > 0) {
+        slider.scrollLeft -= slider.offsetWidth;
+        isDown = false;
+        slider.classList.remove('active');
+      } else {
+        slider.scrollLeft += slider.offsetWidth;
+        isDown = false;
+        slider.classList.remove('active');
+      }
     });
     slider.addEventListener('mousemove', (e) => {
       if (!isDown) return;
@@ -127,5 +143,50 @@ export default class AppView {
       const walk = (x - startX) * 3; // scroll-fast
       slider.scrollLeft = scrollLeft - walk;
     });
+
+    slider.addEventListener('touchstart', (e) => {
+      isDown = true;
+      slider.classList.add('active');
+      startX = e.pageX - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;
+    });
+    slider.addEventListener('touchleave', () => {
+      isDown = false;
+      slider.classList.remove('active');
+    });
+    slider.addEventListener('touchend', (e) => {
+      const x = e.pageX - slider.offsetLeft;
+      const walk = (x - startX) * 3;
+      if (walk > 0) {
+        slider.scrollLeft -= slider.offsetWidth;
+        isDown = false;
+        slider.classList.remove('active');
+      } else {
+        slider.scrollLeft += slider.offsetWidth;
+        isDown = false;
+        slider.classList.remove('active');
+      }
+    });
+    slider.addEventListener('touchmove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - slider.offsetLeft;
+      const walk = (x - startX) * 3; // scroll-fast
+      slider.scrollLeft = scrollLeft - walk;
+    });
+
+    const buttonPrev = document.querySelector('.button-prev');
+    const buttonNext = document.querySelector('.button-next');
+    buttonNext.onclick = () => {
+      const spanPrev = document.querySelector('.prev');
+      spanPrev.setAttribute('data-title', 'count1');
+      spanPrev.innerHTML = count1;
+      slider.scrollLeft += slider.offsetWidth;
+
+    };
+
+    buttonPrev.onclick = () => {
+      slider.scrollLeft -= slider.offsetWidth;
+    };
   }
 }

@@ -14,7 +14,13 @@ export default class App {
     const inform = await model.getClipInform(data);
     const view = new AppView(inform);
     view.render();
-    console.log('pageToken11111111111111111', pageToken);
-    return pageToken;
+
+    const section = document.querySelector('.content-wrapper');
+    section.onscroll = async () => {
+      if (section.scrollLeft + section.offsetWidth >= section.scrollWidth) {
+        const app = new App(this.value);
+        app.start(pageToken);
+      }
+    };
   }
 }

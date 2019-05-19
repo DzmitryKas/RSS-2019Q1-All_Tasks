@@ -50,7 +50,6 @@ body {
 
 .content-wrapper {
   display: flex;
-  /* flex-direction: row; */
   margin-top: 30px;
   transition: 0.6s;
   position: relative;
@@ -66,9 +65,8 @@ body {
 }
 
 .box {
-  max-width: 320px;
+  width: 320px;
   height: auto;
-  margin: 0 70px;
   border: 1px solid rgb(117, 117, 117);
   border-radius: 7px;
   background: #fafbfb
@@ -78,15 +76,11 @@ body {
   background-color: #b9f6e7;
 }
 
-  .content-wrapper.active {
-    background: rgba(255,255,255,0.3);
-    cursor: grabbing;
-    cursor: -webkit-grabbing;
-    transform: scale(1);
-  }
-
-.box:last-child {
-  margin-right: 0;
+.content-wrapper.active {
+  background: rgba(255,255,255,0.3);
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+  transform: scale(1);
 }
 
 .video-img- {
@@ -134,31 +128,64 @@ body {
 }
 
 p.new-description-info {
-  /* white-space: nowrap; */
   max-height: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-all;
-  /* /* word-wrap: break-word;  */
   text-align: justify;
-    color: #575757;
-    word-break: break-word;
-    transition: color .7s;
-}
-
-/* ANIMATION */
-.-swipe-left {
-  transform: translate(-100%);
-  opacity: 0;
-}
-
-.-swipe-right {
-  transform: translate(100%);
-  opacity: 0;
+  color: #575757;
+  word-break: break-word;
+  transition: color .7s;
 }
 
 .content-wrapper .-visible {
   opacity: 1;
+}
+
+.button-prev, .button-next {
+  position: relative;
+  display: inline-block;
+
+  background: none;
+  outline: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+  color: #eee;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: .05em;
+  margin: 1em;
+}
+
+.next, .prev {
+  position: relative;
+  z-index: 1;
+  display: block;
+  min-width: 1em;
+  padding: 1em;
+  border-radius: 2em;
+  background-color: #40bb9d;
+  border: 1px solid darken(#045c46, 5%);
+  box-shadow: -5px 5px 10px rgba(0,0,0,0.2);
+  transition: transform .1s, box-shadow .2s, background-color .2s;
+}
+
+.wrapper-button {
+  width: 200px;
+  margin: 100px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.prev::before {
+  content: attr(data-title); /*помещаем подсказку в псевдоэлемент*/
+  display: none; /*скрываем подсказку*/
+}
+
+.prev:focus::before {
+  display: block;
 }
 
 @media screen and (max-width: 768px) {
@@ -181,3 +208,5 @@ p.new-description-info {
     width: 100%;
   }
 }
+
+
