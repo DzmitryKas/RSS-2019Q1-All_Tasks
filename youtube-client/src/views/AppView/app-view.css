@@ -179,15 +179,6 @@ p.new-description-info {
   justify-content: space-between;
 }
 
-.prev::before {
-  content: attr(data-title); /*помещаем подсказку в псевдоэлемент*/
-  display: none; /*скрываем подсказку*/
-}
-
-.prev:focus::before {
-  display: block;
-}
-
 @media screen and (max-width: 768px) {
   .form {
     width: 100%;

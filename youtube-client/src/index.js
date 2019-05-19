@@ -51,10 +51,6 @@ btnInputSearch.onclick = (e) => {
   prevButton.appendChild(prev);
   prev.innerHTML = 'prev';
 
-  const prevHidden = document.createElement('span');
-  prevHidden.className = 'prevHidden';
-  prevButton.appendChild(prevHidden);
-
   const nextButton = document.createElement('button');
   nextButton.className = 'button-next';
   wrapperButton.appendChild(nextButton);
@@ -63,10 +59,6 @@ btnInputSearch.onclick = (e) => {
   next.className = 'next';
   nextButton.appendChild(next);
   next.innerHTML = 'next';
-
-  const nextHidden = document.createElement('span');
-  nextHidden.className = 'nextHidden';
-  nextButton.appendChild(nextHidden);
 
   const app = new App(input);
   app.start();

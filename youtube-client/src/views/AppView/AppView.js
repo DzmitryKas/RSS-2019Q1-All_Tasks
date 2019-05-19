@@ -177,12 +177,9 @@ export default class AppView {
 
     const buttonPrev = document.querySelector('.button-prev');
     const buttonNext = document.querySelector('.button-next');
-    buttonNext.onclick = () => {
-      const spanPrev = document.querySelector('.prev');
-      spanPrev.setAttribute('data-title', 'count1');
-      spanPrev.innerHTML = count1;
-      slider.scrollLeft += slider.offsetWidth;
 
+    buttonNext.onclick = () => {
+      slider.scrollLeft += slider.offsetWidth;
     };
 
     buttonPrev.onclick = () => {
