@@ -42,7 +42,7 @@
 }
 
 .menu::before {
-  content: "";
+  content: '';
   display: block;
   height: 1px;
   width: 100%;
@@ -61,7 +61,7 @@
 }
 
 .menu-color::before {
-  content: "";
+  content: '';
   display: block;
   height: 1px;
   width: 100%;
@@ -109,14 +109,19 @@ button:pressed {
 
 .menu-color button {
   text-decoration: none;
-  text-align: start; 
+  text-align: start;
 }
 
 .menu-color span {
   padding-left: 10px;
 }
 
-#circle-red, #circle-current, #circle-prev, #circle-blue, #circle-green, #circle-black  {
+#circle-red,
+#circle-current,
+#circle-prev,
+#circle-blue,
+#circle-green,
+#circle-black {
   width: 10px;
   height: 10px;
   -moz-border-radius: 5px;
@@ -130,7 +135,8 @@ button:pressed {
   background-color: red;
 }
 
-#circle-current {}
+#circle-current {
+}
 
 #circle-blue {
   background-color: blue;
@@ -151,7 +157,8 @@ button:pressed {
   font-weight: bold;
 }
 
-.menu span, .menu-color span {
+.menu span,
+.menu-color span {
   font-family: 'Dosis-Regular', Arial, sans-serif;
   font-size: 14px;
   color: #5c5c5c;
@@ -160,8 +167,7 @@ button:pressed {
 #square {
   width: 201px;
   height: 201px;
-  background: red;  
-  
+  background: red;
 }
 
 .circle {
@@ -194,7 +200,6 @@ button:pressed {
   height: 150px;
   margin: auto auto;
   background-color: white;
- 
 }
 
 .canvas-wrapper {
@@ -214,7 +219,7 @@ button:pressed {
 }
 
 .menu-frame {
-  width: 200px;  
+  width: 200px;
   position: absolute;
   margin-left: 150px;
   margin-top: 50px;
@@ -230,7 +235,7 @@ button:pressed {
 
 .wrapper-animation {
   width: 400px;
-  height: 400px;  
+  height: 400px;
   margin-top: 50px;
   margin-left: 100px;
   position: absolute;
@@ -239,10 +244,12 @@ button:pressed {
   position: relative;
 }
 
-.canvas-animation {  
-width: 300px;
-height: 300px; 
-margin: auto;
+.canvas-animation {
+  width: 300px;
+  height: 300px;
+  margin-top: 20px;
+  margin-left: 50px;
+  border: 1px solid black;
 }
 
 .main {
@@ -250,11 +257,11 @@ margin: auto;
 }
 
 .buttom-animation {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
-input[type="text"]{
-    width: 40px;
-    margin-left: 50px;
+input[type='text'] {
+  width: 40px;
+  margin-left: 50px;
 }
