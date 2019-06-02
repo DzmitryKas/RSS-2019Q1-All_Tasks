@@ -184,11 +184,13 @@ function fun1() {
 let frameRate = 5;
 let count = 1;
 let rng = document.getElementById('r1');
+let b = 0;
 
 // Создание анимации на основе полученных кадров
 const startAnimation = frames => {
   frameRate = fun1();
-  setInterval(() => {
+    clearInterval(timerId);
+  var timerId = setInterval(() => {
     if (count < frames.length) {
       const frame = frames[count];
       drawAnimation(frame);
@@ -197,6 +199,7 @@ const startAnimation = frames => {
       count = 1;
     }
   }, 1000 / frameRate);
+  
 };
 
 // Обновление холста
@@ -216,7 +219,8 @@ document.querySelector('.add-frame').addEventListener('click', () => {
   draw();
 });
 
-// Старт
+//Старт
 document.querySelector('.start').addEventListener('click', () => {
   startAnimation(frames);
 });
+
