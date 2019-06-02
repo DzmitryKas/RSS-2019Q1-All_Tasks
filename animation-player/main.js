@@ -74,10 +74,6 @@ moveFigure.addEventListener('click', () => {
   state.currentTool = 'moveFigure';
 });
 
-// const frame = document.querySelector('.add-frame');
-
-
-// frame.addEventListener('click', () => { 
     const draw = () => {
         
     let framesDom = document.querySelectorAll('#square');
@@ -109,6 +105,7 @@ moveFigure.addEventListener('click', () => {
         })
       })
     // }
+    return arrColor
   }
 
 function drawCanvas() {
@@ -144,8 +141,8 @@ const canvasWrapper = document.createElement('div');
   });
   
   doubleFile.addEventListener('click', () => { 
-    canvasDouble = canvasWrapper.cloneNode(true);   
-    menuFrame.insertBefore(canvasDouble, menuFrame.children[menuFrame.children.length-1]); 
+    drawCanvas()
+    draw();
     numberFrame()
   });
   
@@ -158,7 +155,86 @@ const canvasWrapper = document.createElement('div');
   numberFrame() 
 } 
 
-   document.querySelector('.add-frame').addEventListener('click', () => {
+const drawAnimation = (arr) => {  
+    let canvasAnimation = document.querySelector('.canvas-animation');      
+        console.log('arr', arr);
+        //  if (canvas.getContext) {
+      let ctx = canvasAnimation.getContext('2d');
+
+      arr.forEach((row, m) => {
+        row.forEach((column, n) => {
+            ctx.fillStyle = column;
+            ctx.fillRect((n * 31), (m * 31), 30, 30);
+        })
+      })  
+    // }
+  }
+
+  let frameRate = 1;
+  let count = 0;
+const startAnimation = (frames) => {  
+    // console.log('frames', frames.length)   
+    // if (count < frames.length) {   
+    //     const frame = frames[count];   
+    //   drawAnimation(frame);     
+    //     count++;
+    // } else {
+    //     count = 0;
+    // }
+    // setTimeout(startAnimation(frames), 1000 / frameRate);
+    let fps1 = document.querySelector('fps-five')
+    if(fps1){
+        fps1.addEventListener('click', () => {
+            return frameRate = 5; 
+        })
+      }
+
+let fps5 = document.querySelector('fps-five')
+if(fps5){
+    fps5.addEventListener('click', () => {
+        return frameRate = 5; 
+    })
+  }
+
+
+  let fps20 = document.querySelector('fps-five')
+  if(fps20){
+      fps20.addEventListener('click', () => {
+          return frameRate = 20; 
+      })
+    }
+setInterval(() => {  
+        if (count < frames.length) {
+            const frame = frames[count];   
+            drawAnimation(frame);
+            count++
+        }   
+        else {
+            count = 0;}
+ 
+    
+    }, 1000/frameRate)
+}
+
+const resetCanvas = () => {
+    let colorSquare = document.querySelectorAll('#square');
+    colorSquare.forEach(function(el) {     
+    el.style.background = 'red';
+    });
+}
+
+const frames = [];    
+   document.querySelector('.add-frame').addEventListener('click', () => { 
+     
     drawCanvas();
-    draw();
+    const frame = draw();
+    frames.push(frame); 
+    console.log('frames', frames)
+    resetCanvas ();      
+    
+ })
+
+ document.querySelector('.start').addEventListener('click', () => {    
+    startAnimation(frames) 
+    
  })
