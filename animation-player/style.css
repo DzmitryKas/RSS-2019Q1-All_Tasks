@@ -253,3 +253,8 @@ margin: auto;
     display: flex;
     justify-content: space-between;
 }
+
+input[type="text"]{
+    width: 40px;
+    margin-left: 50px;
+}

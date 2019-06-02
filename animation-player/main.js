@@ -101,7 +101,7 @@ moveFigure.addEventListener('click', () => {
       arrColor.forEach((row, m) => {
         row.forEach((column, n) => {
             ctx.fillStyle = column;
-            ctx.fillRect((n * 51), (m * 51), 50, 50);
+            ctx.fillRect((n * 102), (m * 51), 100, 50);
         })
       })
     // }
@@ -142,7 +142,8 @@ const canvasWrapper = document.createElement('div');
   
   doubleFile.addEventListener('click', () => { 
     drawCanvas()
-    draw();
+    const frame = draw();
+    frames.push(frame);    
     numberFrame()
   });
   
@@ -164,55 +165,35 @@ const drawAnimation = (arr) => {
       arr.forEach((row, m) => {
         row.forEach((column, n) => {
             ctx.fillStyle = column;
-            ctx.fillRect((n * 31), (m * 31), 30, 30);
+            ctx.fillRect((n * 102), (m * 51), 100, 50);
         })
       })  
     // }
   }
 
-  let frameRate = 1;
-  let count = 0;
+  function fun1() {
+    var rng=document.getElementById('r1'); //rng - это ползунок
+  var i1=document.getElementById('i1'); // i1 - input
+   i1.value = rng.value + ' fps';
+   return rng.value
+}
+
+
+  let frameRate = 5;
+  let count = 1;
 const startAnimation = (frames) => {  
-    // console.log('frames', frames.length)   
-    // if (count < frames.length) {   
-    //     const frame = frames[count];   
-    //   drawAnimation(frame);     
-    //     count++;
-    // } else {
-    //     count = 0;
-    // }
-    // setTimeout(startAnimation(frames), 1000 / frameRate);
-    let fps1 = document.querySelector('fps-five')
-    if(fps1){
-        fps1.addEventListener('click', () => {
-            return frameRate = 5; 
-        })
-      }
-
-let fps5 = document.querySelector('fps-five')
-if(fps5){
-    fps5.addEventListener('click', () => {
-        return frameRate = 5; 
-    })
-  }
-
-
-  let fps20 = document.querySelector('fps-five')
-  if(fps20){
-      fps20.addEventListener('click', () => {
-          return frameRate = 20; 
-      })
-    }
+       
 setInterval(() => {  
-        if (count < frames.length) {
-            const frame = frames[count];   
-            drawAnimation(frame);
-            count++
-        }   
-        else {
-            count = 0;}
- 
-    
+    const frameRate = fun1();
+
+    if (count < frames.length) {
+        const frame = frames[count];   
+        drawAnimation(frame);
+        count++
+    }   
+    else {
+        count = 1;}    
+            
     }, 1000/frameRate)
 }
 
@@ -224,17 +205,19 @@ const resetCanvas = () => {
 }
 
 const frames = [];    
-   document.querySelector('.add-frame').addEventListener('click', () => { 
-     
-    drawCanvas();
-    const frame = draw();
-    frames.push(frame); 
-    console.log('frames', frames)
-    resetCanvas ();      
-    
+document.querySelector('.add-frame').addEventListener('click', () => {      
+ drawCanvas();
+ const frame = draw();
+ frames.push(frame); 
+ console.log('frames', frames)
+ resetCanvas (); 
+ draw();
+  
+})
+
+ document.querySelector('.start').addEventListener('click', () => { 
+    startAnimation(frames)     
  })
 
- document.querySelector('.start').addEventListener('click', () => {    
-    startAnimation(frames) 
-    
- })
+
+ 
