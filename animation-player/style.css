@@ -191,10 +191,18 @@ button:pressed {
 .canvas-mini {
   width: 150px;
   height: 150px;
-  margin: 20px auto;
+  margin: auto auto;
   background-color: white;
+ 
+}
+
+.canvas-wrapper {
+  width: 190px;
+  height: 190px;
   display: flex;
   position: relative;
+  margin: 20px auto;
+  border: 1px solid black;
 }
 
 .counter {

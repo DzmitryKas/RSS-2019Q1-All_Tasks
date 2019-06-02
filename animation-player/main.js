@@ -64,6 +64,7 @@ Array.from(elementChildrens).forEach(function(transform) {
   transform.addEventListener('click', function(e) {
     if (state.currentTool === 'paintFigure') {
       e.target.style.background = colorValueEl.style.background;
+      draw();
     }
   });
 });
@@ -73,37 +74,77 @@ moveFigure.addEventListener('click', () => {
   state.currentTool = 'moveFigure';
 });
 
-const frame = document.querySelector('.add-frame');
-const menuFrame = document.querySelector('.menu-frame');
+// const frame = document.querySelector('.add-frame');
 
-frame.addEventListener('click', () => { 
-  const canvas = document.createElement('div');
+
+// frame.addEventListener('click', () => { 
+    const draw = () => {
+        
+    let framesDom = document.querySelectorAll('#square');
+    let arrColor1 = [];
+    let arrColor2 = [];
+    let arrColor3 = [];
+    let arrColor = [arrColor1, arrColor2, arrColor3];
+
+    framesDom.forEach(function(element, index) {
+    if (index < 3){
+    let color = getComputedStyle(element).backgroundColor;
+    arrColor1.push(color);}
+    if (index > 2 && index < 6){
+    let color = getComputedStyle(element).backgroundColor;
+    arrColor2.push(color);}
+    if (index > 5 && index < 9){
+    let color = getComputedStyle(element).backgroundColor;
+    arrColor3.push(color);}
+  })
+
+    let canvasMini = document.querySelectorAll('.canvas-mini');  
+    // if (canvas.getContext) {
+      let ctx = canvasMini[canvasMini.length - 1].getContext('2d');
+
+      arrColor.forEach((row, m) => {
+        row.forEach((column, n) => {
+            ctx.fillStyle = column;
+            ctx.fillRect((n * 51), (m * 51), 50, 50);
+        })
+      })
+    // }
+  }
+
+function drawCanvas() {
+
+const menuFrame = document.querySelector('.menu-frame');
+const canvasWrapper = document.createElement('div');
+  canvasWrapper.className = 'canvas-wrapper';
+  menuFrame.insertBefore(canvasWrapper, menuFrame.children[menuFrame.children.length - 1]);
+
+  const canvas = document.createElement('canvas');
   canvas.className = 'canvas-mini';
-  menuFrame.insertBefore(canvas, menuFrame.children[menuFrame.children.length - 1]);
+  canvasWrapper.appendChild(canvas);
 
   const counter = document.createElement('div');
   counter.className = 'counter';
-  canvas.appendChild(counter);
+  canvasWrapper.appendChild(counter);
 
   const basket = document.createElement('i');
   basket.className = 'icon-trash';
-  canvas.appendChild(basket);
+  canvasWrapper.appendChild(basket);
 
   const doubleFile = document.createElement('i');
   doubleFile.className = 'icon-docs';
-  canvas.appendChild(doubleFile);
+  canvasWrapper.appendChild(doubleFile);
 
   const move = document.createElement('i');
   move.className = 'icon-braille';
-  canvas.appendChild(move);  
+  canvasWrapper.appendChild(move);  
 
   basket.addEventListener('click', () => {    
-    menuFrame.removeChild(canvas)  
+    menuFrame.removeChild(canvasWrapper)  
     numberFrame()  
   });
   
   doubleFile.addEventListener('click', () => { 
-    canvasDouble = canvas.cloneNode(true);   
+    canvasDouble = canvasWrapper.cloneNode(true);   
     menuFrame.insertBefore(canvasDouble, menuFrame.children[menuFrame.children.length-1]); 
     numberFrame()
   });
@@ -114,6 +155,10 @@ frame.addEventListener('click', () => {
       counter[index].innerText = index + 1;
     });
   }
-  numberFrame()
-});
+  numberFrame() 
+} 
 
+   document.querySelector('.add-frame').addEventListener('click', () => {
+    drawCanvas();
+    draw();
+ })
