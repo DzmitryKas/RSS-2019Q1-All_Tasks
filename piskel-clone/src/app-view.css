@@ -37,7 +37,7 @@ h1 {
 
 .tool-field {
   width: 100px;
-  height: 490px;
+  height: 510px;
   margin-left: 1px;
   margin-top: calc((100vh - 530px) / 2);
   background-color: #a0a0a0;
@@ -109,11 +109,32 @@ h1 {
 .field-paint {
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
-.canvas {
-  height: 940px;
-  width: 940px;
+#canvas-basic {
+  background-color: #555555;
+  margin-top: 50px;
+  height: 800px;
+  width: 800px;
 }
+
+.first-current-color {
+  width: 50px;
+  height: 50px;
+  border: none;
+  padding: 0;
+  /* background-color: none; */
+  z-index: 1;
+}
+
+.second-current-color {
+  width: 50px;
+  height: 50px;
+  border: none;
+  padding: 0;
+  /* background-color: none; */
+  margin-left: 30px;
+  margin-top: -20px;
+}
+
 
