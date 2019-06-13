@@ -61,13 +61,15 @@ h1 {
   align-items: center;
 }
 
+.pencil-width > div:active {
+  border: 2px solid #ffd700;
+}
+
 .pencil-width > div:hover {
   border: 2px solid #a0a0a0;
 }
 
-.pencil-width > div:active {
-  border: 2px solid #ffd700;
-}
+
 
 .small {
   height: 7px;
