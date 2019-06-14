@@ -19,21 +19,21 @@
     <section class="tools-and-frames">
       <div class="tool-field">
         <div class="pencil-width">
-          <div class="active">
+          <div class="wrapper-width active">
             <div class="small"></div>
           </div>
-          <div class="not-active">
+          <div class="wrapper-width">
             <div class="medium-one"></div>
           </div>
-          <div class="not-active">
+          <div class="wrapper-width">
             <div class="medium-two"></div>
           </div>
-          <div class="not-active">
+          <div class="wrapper-width">
             <div class="big"></div>
           </div>
         </div>
         <div class="tools">
-          <div class="pen"></div>
+          <div class="pen"><i class='icon-pencil'></i></div>
           <div></div>
           <div></div>
           <div></div>
@@ -52,18 +52,24 @@
         <div class="current-color">
           <input type="color" class="first-current-color">
           <input type="color" class="second-current-color">
-          <!-- <div class="first-current-color"></div>
-          <div class="second-current-color"></div> -->
         </div>
       </div>
-      <div class="frames"></div>
+      <div class="menu-frame">
+        <button class="add-frame"><i class="icon-plus"></i><span>Add new frame</span></button>
+      </section>
     </section>
 <section class="field-paint">
 <canvas id="canvas-basic"></canvas>
 <!-- <canvas id="canvas-draw"></canvas> -->
 </section>
-<section class="animation">
-
+<section class="wrapper-animation">
+  <canvas class="canvas-animation"></canvas>
+  <div class="buttom-animation">
+    <button class="start">start</button>
+    <input type="range" id="r1" min="1" max="24" step="1" oninput="fun1()" />
+    <input type="text" id="i1" />
+    <button class="full-screen">full-screen</button>
+  </div>
 </section>
   </main>
 <p></p>

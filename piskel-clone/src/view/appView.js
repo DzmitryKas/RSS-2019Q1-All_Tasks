@@ -1,9 +1,10 @@
+/* eslint-disable class-methods-use-this */
 export default class AppView {
   constructor(state) {
     this.state = state;
   }
 
-   drawKlektis() {
+  drawKlektis() {
     // отрисовка шахматной доски
     const canvasBasic = document.getElementById('canvas-basic');
     const ctx = canvasBasic.getContext('2d');
@@ -20,5 +21,54 @@ export default class AppView {
         ctx.clearRect((i + 1) * 2, (j + 1) * 2, 2, 2);
       }
     }
+  }
+
+  // Создание рамки для отрисовки, удаление кадра и создание копии
+  drawWrapperCanvas() {
+    const menuFrame = document.querySelector('.menu-frame');
+    const canvasWrapper = document.createElement('div');
+    canvasWrapper.className = 'canvas-wrapper';
+    menuFrame.insertBefore(canvasWrapper, menuFrame.children[menuFrame.children.length - 1]);
+
+    const canvas = document.createElement('canvas');
+    canvas.className = 'canvas-mini';
+    canvasWrapper.appendChild(canvas);
+
+    const counter = document.createElement('div');
+    counter.className = 'counter';
+    canvasWrapper.appendChild(counter);
+
+    const basket = document.createElement('i');
+    basket.className = 'icon-trash';
+    canvasWrapper.appendChild(basket);
+
+    const doubleFile = document.createElement('i');
+    doubleFile.className = 'icon-docs';
+    canvasWrapper.appendChild(doubleFile);
+
+    const move = document.createElement('i');
+    move.className = 'icon-braille';
+    canvasWrapper.appendChild(move);
+
+    // Функция определения порядкового номера кадра
+    function numberFrame() {
+      const counterFrame = document.querySelectorAll('.counter');
+      counterFrame.forEach((el, index) => {
+        counterFrame[index].innerText = index + 1;
+      });
+    }
+
+    basket.addEventListener('click', () => {
+      menuFrame.removeChild(canvasWrapper);
+      numberFrame();
+    });
+
+    doubleFile.addEventListener('click', () => {
+      drawWrapperCanvas();
+      numberFrame();
+    });
+
+
+    numberFrame();
   }
 }
