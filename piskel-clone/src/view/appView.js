@@ -4,15 +4,16 @@ export default class AppView {
     this.state = state;
   }
 
-  drawKlektis() {
+  drawKlektis(element) {
     // отрисовка шахматной доски
-    const canvasBasic = document.getElementById('canvas-basic');
-    const ctx = canvasBasic.getContext('2d');
-    canvasBasic.style.transform = 'scale(5, 5)';
+    const canvasBasic = document.querySelectorAll('#canvas-basic');
+    console.log('canvasBasic', canvasBasic);
+    const ctx = canvasBasic[element].getContext('2d');
+    canvasBasic[element].style.transform = 'scale(5, 5)';
     ctx.strokeRect(15, 15, 266, 266);
     ctx.strokeRect(18, 18, 260, 260);
-    canvasBasic.width = 128;
-    canvasBasic.height = 128;
+    canvasBasic[element].width = 128;
+    canvasBasic[element].height = 128;
     ctx.fillStyle = '#4c4c4c'; // меняем цвет клеток
     ctx.fillRect(0, 0, 128, 128);
     for (let i = 0; i < 128; i += 2) {
@@ -49,6 +50,11 @@ export default class AppView {
     const move = document.createElement('i');
     move.className = 'icon-braille';
     canvasWrapper.appendChild(move);
+
+    const fieldPaint = document.querySelector('.field-paint');
+    const canvasBasic = document.createElement('canvas');
+    canvasBasic.id = 'canvas-basic';
+    fieldPaint.appendChild(canvasBasic);
 
     // Функция определения порядкового номера кадра
     function numberFrame() {

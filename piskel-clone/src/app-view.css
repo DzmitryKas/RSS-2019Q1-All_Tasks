@@ -118,6 +118,7 @@ h1 {
   height: 128px;
   width: 128px;
  Image-rendering:pixelated;
+ position: absolute;
 }
 
 .first-current-color {
