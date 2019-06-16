@@ -29,18 +29,31 @@ export default class App {
 
     view.drawKlektis(element);
     model.cloneCanvas(element);
+
     document.querySelector('.pen').addEventListener('click', () => {
       model.drawPen(ctxWidth, myColor, element);
     });
 
     document.querySelector('.add-frame').addEventListener('click', () => {
+      let fps = 1;
       const menuFrame = document.querySelector('.menu-frame');
       element = menuFrame.children.length - 1;
       console.log('element1', element);
       view.drawWrapperCanvas();
       view.drawKlektis(element);
       model.cloneCanvas(element);
+      const arrayPicktures = model.getFrames();
+      model.animation(arrayPicktures, fps);
+
+      document.getElementById('r1').addEventListener('input', () => {
+        const rng = document.getElementById('r1');
+        const i1 = document.getElementById('i1');
+        i1.value = `${rng.value} fps`;
+        fps = rng.value;
+        model.animation(arrayPicktures, fps);
+      });
     });
+
 
     const btnContainer = document.querySelector('.pencil-width');
     const btns = btnContainer.getElementsByClassName('wrapper-width');
