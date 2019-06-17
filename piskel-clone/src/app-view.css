@@ -198,6 +198,10 @@ h1 {
   border: 1px solid black;
 }
 
+.canvas-animation:fullscreen {
+  background-color: white;
+}
+
 .buttom-animation {
   display: flex;
   justify-content: space-between;
@@ -236,5 +240,9 @@ input[type='text'] {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.full-screen {
+  margin: 0 auto;
 }
 

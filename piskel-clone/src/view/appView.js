@@ -63,9 +63,22 @@ export default class AppView {
         counterFrame[index].innerText = index + 1;
       });
     }
+    console.log('basket', basket);
 
-    basket.addEventListener('click', () => {
-      menuFrame.removeChild(canvasWrapper);
+    basket.addEventListener('click', (e) => {
+      const arrayBasket = document.getElementsByClassName('icon-trash');
+      const arrayCanvas = document.querySelectorAll('#canvas-basic');
+      const fieldCanvas = document.querySelector('.field-paint');
+      Array.from(arrayBasket).forEach((el, index) => {
+        if (el === e.target) {
+          menuFrame.removeChild(canvasWrapper);
+          Array.from(arrayCanvas).forEach((el1, index1) => {
+            if (index === index1) {
+              fieldCanvas.removeChild(el1);
+            }
+          });
+        }
+      });
       numberFrame();
     });
 
@@ -75,6 +88,6 @@ export default class AppView {
     });
 
 
-    numberFrame();
+    // numberFrame();
   }
 }

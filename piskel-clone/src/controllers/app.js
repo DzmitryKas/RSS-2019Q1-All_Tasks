@@ -14,9 +14,14 @@ export default class App {
     const model = new AppModel();
     const view = new AppView();
 
-    const ctxWidth = 1;
+    let ctxWidth;
     let element = 0;
-    console.log('element', element);
+    let fps = 13;
+    let timerID;
+
+    const rng = document.getElementById('r1');
+    const i1 = document.getElementById('i1');
+    i1.value = `${rng.value} fps`;
 
     const colorCurrent = document.querySelector('.first-current-color');
     let myColor = 'black';
@@ -35,7 +40,6 @@ export default class App {
     });
 
     document.querySelector('.add-frame').addEventListener('click', () => {
-      let fps = 1;
       const menuFrame = document.querySelector('.menu-frame');
       element = menuFrame.children.length - 1;
       console.log('element1', element);
@@ -43,15 +47,43 @@ export default class App {
       view.drawKlektis(element);
       model.cloneCanvas(element);
       const arrayPicktures = model.getFrames();
-      model.animation(arrayPicktures, fps);
+      model.clearAnimation(timerID);
+      timerID = model.animation(arrayPicktures, fps);
 
-      document.getElementById('r1').addEventListener('input', () => {
-        const rng = document.getElementById('r1');
-        const i1 = document.getElementById('i1');
-        i1.value = `${rng.value} fps`;
-        fps = rng.value;
-        model.animation(arrayPicktures, fps);
-      });
+      // let arrayBasket = document.getElementsByClassName('icon-trash');
+      // for (let i = 0; i < arrayBasket.length; i++) {
+      //   arrayBasket.addEventListener('click', (e) => {
+      //     // const menuFrame = document.querySelector('.menu-frame');
+      //     arrayBasket = document.getElementsByClassName('icon-trash');
+      //     const canvasWrapper = document.getElementsByClassName('canvas-wrapper');
+      //     const arrayCanvas = document.querySelectorAll('#canvas-basic');
+      //     const fieldCanvas = document.querySelector('.field-paint');
+      //     // Array.from(arrayBasket).forEach((el, index) => {
+      //     if (arrayBasket[i] === e.target) {
+      //       console.log('arrayBasket', arrayBasket);
+      //       console.log('arrayBasket[i]', arrayBasket[i]);
+      //       menuFrame.removeChild(canvasWrapper[i]);
+      //       Array.from(arrayCanvas).forEach((el1, index1) => {
+      //         if (i === index1) {
+      //           console.log('i', i);
+      //           console.log('index1', index1);
+      //           fieldCanvas.removeChild(el1);
+      //         }
+      //       });
+      //     }
+      // });
+      // model.numberFrame();
+      // });
+      // model.numberFrame();
+      // }
+    });
+
+    document.getElementById('r1').addEventListener('input', () => {
+      i1.value = `${rng.value} fps`;
+      fps = rng.value;
+      const arrayPicktures = model.getFrames();
+      model.clearAnimation(timerID);
+      timerID = model.animation(arrayPicktures, fps);
     });
 
 
@@ -61,9 +93,8 @@ export default class App {
     // Loop through the buttons and add the active class to the current/clicked button
     for (let i = 0; i < btns.length; i++) {
       btns[i].addEventListener('click', function () {
-        const ctxWidth = i + 1;
+        ctxWidth = i + 1;
         model.drawPen(ctxWidth, myColor, element);
-        console.log('i', i);
         const current = document.getElementsByClassName('active');
         if (current.length > 0) {
           current[0].className = current[0].className.replace(' active', '');
@@ -71,5 +102,36 @@ export default class App {
         this.className += ' active';
       });
     }
+
+    document.querySelector('.full-screen').addEventListener('click', () => {
+      const canvas = document.querySelector('.canvas-animation');
+      function fullScreen(elem) {
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen();
+        } else if (elem.webkitrequestFullscreen) {
+          elem.webkitRequestFullscreen();
+        } else if (elem.mozRequestFullscreen) {
+          elem.mozRequestFullScreen();
+        }
+      }
+      fullScreen(canvas);
+    });
+
+
+    // const arrayBasket = document.getElementsByClassName('icon-trash');
+    // console.log('arrayBasket', arrayBasket);
+    // Array.from(arrayBasket).forEach((el) => {
+    //   el.addEventListener('click', (e) => {
+    //     console.log('e', e.target);
+    //   });
+    // });
+    //   if (el === e.target) {
+    //     console.log('e.target', e.target);
+    //   }
+    // });
+
+
+    // menuFrame.removeChild(canvasWrapper);
+    // numberFrame();
   }
 }
