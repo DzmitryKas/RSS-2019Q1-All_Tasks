@@ -34,7 +34,7 @@
         </div>
         <div class="tools">
           <div class="pen"><i class='icon-pencil'></i></div>
-          <div></div>
+          <div class="draw-line" ></div>
           <div></div>
           <div></div>
           <div></div>
@@ -67,7 +67,10 @@
     </section>
 <section class="field-paint">
 <canvas id="canvas-basic"></canvas>
-<!-- <canvas id="canvas-draw"></canvas> -->
+<div class="information-canvas">
+  <p class="size-canvas"></p>
+  <p class="coordinates"></p>
+</div>
 </section>
 <section class="animation">
   <div class="wrapper-animation">
@@ -75,14 +78,22 @@
         <canvas class="canvas-animation" width="128" height="128"></canvas>
     </div>
     <div class="buttom-animation">
-      <!-- <button class="start">start</button> -->
       <input type="text" id="i1" />
       <input type="range" id="r1" min="1" max="24" step="1" />
     </div>
     <button class="full-screen">full-screen</button>
   </div>
 </section>
-
+<div class="wrapper">
+  <div class="menu">
+    <a href="#" class="menu-btn"></a>
+    <nav class="menu-list">
+      <button class="low-canvas">32/32</button>
+      <button class="medium-canvas">64/64</button>
+      <button class="big-canvas">128/128</button>
+    </nav>
+  </div>
+</div>
   </main>
 <p></p>
   <script type="text/javascript" src="dist/app.bundle.js"></script></body>

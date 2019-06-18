@@ -4,20 +4,20 @@ export default class AppView {
     this.state = state;
   }
 
-  drawKlektis(element) {
+  drawKlektis(element, scale, widthCanvas) {
     // отрисовка шахматной доски
     const canvasBasic = document.querySelectorAll('#canvas-basic');
     console.log('canvasBasic', canvasBasic);
     const ctx = canvasBasic[element].getContext('2d');
-    canvasBasic[element].style.transform = 'scale(5, 5)';
-    ctx.strokeRect(15, 15, 266, 266);
-    ctx.strokeRect(18, 18, 260, 260);
-    canvasBasic[element].width = 128;
-    canvasBasic[element].height = 128;
+    canvasBasic[element].style.transform = `scale(${scale}, ${scale})`;
+    // ctx.strokeRect(15, 15, 266, 266);
+    // ctx.strokeRect(18, 18, 260, 260);
+    canvasBasic[element].width = widthCanvas;
+    canvasBasic[element].height = widthCanvas;
     ctx.fillStyle = '#4c4c4c'; // меняем цвет клеток
-    ctx.fillRect(0, 0, 128, 128);
-    for (let i = 0; i < 128; i += 2) {
-      for (let j = 0; j < 128; j += 2) {
+    ctx.fillRect(0, 0, widthCanvas, widthCanvas);
+    for (let i = 0; i < widthCanvas; i += 2) {
+      for (let j = 0; j < widthCanvas; j += 2) {
         ctx.clearRect(i * 2, j * 2, 2, 2);
         ctx.clearRect((i + 1) * 2, (j + 1) * 2, 2, 2);
       }
@@ -63,31 +63,22 @@ export default class AppView {
         counterFrame[index].innerText = index + 1;
       });
     }
-    console.log('basket', basket);
-
-    basket.addEventListener('click', (e) => {
-      const arrayBasket = document.getElementsByClassName('icon-trash');
-      const arrayCanvas = document.querySelectorAll('#canvas-basic');
-      const fieldCanvas = document.querySelector('.field-paint');
-      Array.from(arrayBasket).forEach((el, index) => {
-        if (el === e.target) {
-          menuFrame.removeChild(canvasWrapper);
-          Array.from(arrayCanvas).forEach((el1, index1) => {
-            if (index === index1) {
-              fieldCanvas.removeChild(el1);
-            }
-          });
-        }
-      });
-      numberFrame();
-    });
 
     doubleFile.addEventListener('click', () => {
       drawWrapperCanvas();
       numberFrame();
     });
+  }
 
+  drawInformationCanvac(element, size) {
+    const canvasBasic = document.querySelectorAll('#canvas-basic');
 
-    // numberFrame();
+    canvasBasic[element].onmousemove = function onmousemove(e) {
+      const xd = e.offsetX;
+      const yd = e.offsetY;
+      document.querySelector('.coordinates').innerHTML = `${xd} ${yd}`;
+    };
+
+    document.querySelector('.size-canvas').innerHTML = `${size}`;
   }
 }
