@@ -103,6 +103,11 @@ h1 {
   width: 48px;
   background-color: #1d1d1d;
   margin: 1px;
+  display: flex;
+}
+
+.img-pen, .img-write, .img-paint, .img-eraser, .img-checkbox, .img-blank-circle, .img-hand, .img-pipette, .img-maximaze  {
+  margin: auto auto;
 }
 
 .field-paint {
@@ -160,6 +165,7 @@ h1 {
   height: 120px;
   margin: auto auto;
   background-color: white;
+  Image-rendering:pixelated;
 }
 
 .canvas-wrapper {
@@ -195,6 +201,7 @@ h1 {
   width: 200px;
   height: 200px;
   border: 1px solid black;
+  Image-rendering:pixelated;
 }
 
 .canvas-animation:fullscreen {
@@ -242,7 +249,14 @@ input[type='text'] {
 }
 
 .full-screen {
-  margin: 0 auto;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  height: 35px;
+  width: 35px;
+ border: none;
+ background-color: #1d1d1d;
+ display: flex;
 }
 
 .wrapper {

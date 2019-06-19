@@ -122,6 +122,10 @@ export default class AppModel {
 
     const canvasAnimation = document.querySelector('.canvas-animation');
     const context = canvasAnimation.getContext('2d');
+    const canvasMini = document.querySelector('.canvas-mini');
+
+    canvasAnimation.width = canvasMini.width;
+    canvasAnimation.height = canvasMini.height;
 
     const timerId = setInterval(() => {
       if (count < array.length) {

@@ -20,8 +20,16 @@ module.exports = {
         },
       },
       {
-        test: /\.(css|svg|woff|woff2)$/i,
+        test: /\.css$/,
         use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        loader: 'file-loader?name=src/assets/font/[name].[ext]',
+      },
+      {
+        test: /\.(jpg|png)$/,
+        loader: 'file-loader?name=src/assets/font/[name].[ext]',
       },
     ],
   },
