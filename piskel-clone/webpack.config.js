@@ -8,7 +8,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     publicPath: 'dist/',
   },
-  devtool: 'source-map',
+  // devtool: 'source-map',
   module: {
     rules: [
       { enforce: 'pre', test: /\.js$/, loader: 'eslint-loader' },
@@ -29,7 +29,7 @@ module.exports = {
       },
       {
         test: /\.(jpg|png)$/,
-        loader: 'file-loader?name=src/assets/font/[name].[ext]',
+        loader: 'file-loader',
       },
     ],
   },

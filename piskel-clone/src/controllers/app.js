@@ -23,6 +23,7 @@ export default class App {
     let widthCanvas = 128;
 
     view.drawInformationCanvac(element, widthCanvas);
+    view.resizeCanvas(element, scale, widthCanvas);
 
     const rng = document.getElementById('r1');
     const i1 = document.getElementById('i1');
@@ -36,7 +37,7 @@ export default class App {
     });
 
 
-    view.drawKlektis(element, scale, widthCanvas);
+    // view.drawKlektis(element, scale, widthCanvas);
     model.cloneCanvas(element);
 
     document.querySelector('.pen').addEventListener('click', () => {
@@ -50,9 +51,10 @@ export default class App {
     document.querySelector('.add-frame').addEventListener('click', () => {
       const menuFrame = document.querySelector('.menu-frame');
       element = menuFrame.children.length - 1;
-      console.log('element1', element);
-      view.drawWrapperCanvas();
-      view.drawKlektis(element, scale, widthCanvas);
+      console.log('menuFrame.children[element]', menuFrame.children[element]);
+      view.drawWrapperCanvas(element);
+
+      view.resizeCanvas(element, scale, widthCanvas);
       model.cloneCanvas(element);
       const arrayPicktures = model.getFrames();
       model.clearAnimation(timerID);
@@ -102,8 +104,8 @@ export default class App {
     miniCanvasWrapper.addEventListener('click', (e) => {
       const arrayBasket = document.getElementsByClassName('icon-trash');
       const canvasWrapper = document.getElementsByClassName('canvas-wrapper');
-      const arrayCanvas = document.querySelectorAll('#canvas-basic');
-      const fieldCanvas = document.querySelector('.field-paint');
+      const arrayCanvas = document.querySelectorAll('.field-paint');
+      const fieldCanvas = document.querySelector('.wrapper-field-paint');
       Array.from(arrayBasket).forEach((el, index) => {
         if (e.target === el) {
           miniCanvasWrapper.removeChild(canvasWrapper[index]);
@@ -121,16 +123,27 @@ export default class App {
     });
 
     miniCanvasWrapper.addEventListener('click', (e) => {
+      const arrayDoubleFile = document.getElementsByClassName('icon-docs');
+      Array.from(arrayDoubleFile).forEach((el, index) => {
+        if (e.target === el) {
+          view.drawWrapperCanvas(index + 1);
+          view.resizeCanvas(index + 1, scale, widthCanvas);
+          model.copyCanvas(index);
+        }
+      });
+    });
+
+    miniCanvasWrapper.addEventListener('click', (e) => {
       console.log('el', e.target);
       const canvasWrapper = document.getElementsByClassName('canvas-mini');
-      const arrayCanvas = document.querySelectorAll('#canvas-basic');
+      const arrayCanvas = document.querySelectorAll('.field-paint');
       Array.from(canvasWrapper).forEach((el, index) => {
         if (e.target === el) {
           element = index;
-          Array.from(arrayCanvas).forEach((el1, index1) => {
+          Array.from(arrayCanvas).forEach((elCanvas, index1) => {
             if (index === index1) {
-              el1.style.zIndex = zindex;
-              zindex++;
+              elCanvas.style.zIndex = zindex;
+              zindex += 1;
             }
           });
         }
@@ -145,25 +158,22 @@ export default class App {
     document.querySelector('.low-canvas').addEventListener('click', () => {
       scale = 20;
       widthCanvas = 32;
-      view.drawKlektis(element, scale, widthCanvas);
+      view.resizeCanvas(element, scale, widthCanvas);
       view.drawInformationCanvac(element, widthCanvas);
-      console.log('widthCanvas', widthCanvas);
     });
 
     document.querySelector('.medium-canvas').addEventListener('click', () => {
       scale = 10;
       widthCanvas = 64;
-      view.drawKlektis(element, scale, widthCanvas);
+      view.resizeCanvas(element, scale, widthCanvas);
       view.drawInformationCanvac(element, widthCanvas);
-      console.log('widthCanvas', widthCanvas);
     });
 
     document.querySelector('.big-canvas').addEventListener('click', () => {
       scale = 5;
       widthCanvas = 128;
-      view.drawKlektis(element, scale, widthCanvas);
+      view.resizeCanvas(element, scale, widthCanvas);
       view.drawInformationCanvac(element, widthCanvas);
-      console.log('widthCanvas', widthCanvas);
     });
   }
 }

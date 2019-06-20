@@ -19,6 +19,24 @@ export default class AppModel {
     newContext.drawImage(oldCanvas[element], 0, 0);
   }
 
+  copyCanvas(index) {
+    const arrayCanvasFrames = document.querySelectorAll('.canvas-mini');
+    const arrayCanvasBasic = document.querySelectorAll('#canvas-basic');
+
+    const contextCanvasFrame = arrayCanvasFrames[index + 1].getContext('2d');
+    const contextCanvasBasic = arrayCanvasBasic[index + 1].getContext('2d');
+
+    arrayCanvasFrames[index + 1].width = arrayCanvasFrames[index].width;
+    arrayCanvasFrames[index + 1].height = arrayCanvasBasic[index].height;
+
+    arrayCanvasBasic[index + 1].width = arrayCanvasBasic[index].width;
+    arrayCanvasBasic[index + 1].height = arrayCanvasBasic[index].height;
+
+    contextCanvasFrame.drawImage(arrayCanvasFrames[index], 0, 0);
+    contextCanvasBasic.drawImage(arrayCanvasBasic[index], 0, 0);
+  }
+
+
   drawPen(lineWidth, myColor, element) {
     const canvasBasic = document.querySelectorAll('#canvas-basic');
     const ctx = canvasBasic[element].getContext('2d');
@@ -128,13 +146,13 @@ export default class AppModel {
     canvasAnimation.height = canvasMini.height;
 
     const timerId = setInterval(() => {
+      context.clearRect(0, 0, canvasAnimation.width, canvasAnimation.height);
       if (count < array.length) {
         context.drawImage(array[count], 0, 0);
-        count++;
+        count += 1;
       } else {
         count = 0;
       }
-      // contInterval++;
     }, 1000 / frameRate);
     return timerId;
   }

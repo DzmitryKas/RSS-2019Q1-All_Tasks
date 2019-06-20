@@ -7,6 +7,8 @@
 | Jun 14 | Jun 14 | 5h | add frames and clone canvas to frame |
 | Jun 15 | Jun 15 | 4h | add the ability to copy canvas in frame |
 | Jun 16 | Jun 16 | 4h | add animation and add to change FPS |
-| Jun 17 | Jun 17 | 4h | add to delete frames and fullscreen mode
+| Jun 17 | Jun 17 | 4h | add to delete frames and fullscreen mode |
+| Jun 18 | Jun 18 | 5h | add to change canvas size and add information about canvas |
+| Jun 19 | Jun 20 | 5h | add iconc to the toolbar, implemented the correct operation of removing frames and adding frames  |
 
 Total: 63h

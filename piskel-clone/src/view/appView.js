@@ -4,32 +4,23 @@ export default class AppView {
     this.state = state;
   }
 
-  drawKlektis(element, scale, widthCanvas) {
-    // отрисовка шахматной доски
+  resizeCanvas(element, scale, widthCanvas) {
     const canvasBasic = document.querySelectorAll('#canvas-basic');
-    console.log('canvasBasic', canvasBasic);
-    const ctx = canvasBasic[element].getContext('2d');
+
     canvasBasic[element].style.transform = `scale(${scale}, ${scale})`;
-    // ctx.strokeRect(15, 15, 266, 266);
-    // ctx.strokeRect(18, 18, 260, 260);
     canvasBasic[element].width = widthCanvas;
     canvasBasic[element].height = widthCanvas;
-    ctx.fillStyle = '#4c4c4c'; // меняем цвет клеток
-    ctx.fillRect(0, 0, widthCanvas, widthCanvas);
-    for (let i = 0; i < widthCanvas; i += 2) {
-      for (let j = 0; j < widthCanvas; j += 2) {
-        ctx.clearRect(i * 2, j * 2, 2, 2);
-        ctx.clearRect((i + 1) * 2, (j + 1) * 2, 2, 2);
-      }
-    }
+    const ctxResize = canvasBasic[element].getContext('2d');
+
+    ctxResize.drawImage(canvasBasic[element], 0, 0, widthCanvas, widthCanvas);
   }
 
   // Создание рамки для отрисовки, удаление кадра и создание копии
-  drawWrapperCanvas() {
+  drawWrapperCanvas(pastAfteElement) {
     const menuFrame = document.querySelector('.menu-frame');
     const canvasWrapper = document.createElement('div');
     canvasWrapper.className = 'canvas-wrapper';
-    menuFrame.insertBefore(canvasWrapper, menuFrame.children[menuFrame.children.length - 1]);
+    menuFrame.insertBefore(canvasWrapper, menuFrame.children[pastAfteElement]);
 
     const canvas = document.createElement('canvas');
     canvas.className = 'canvas-mini';
@@ -51,23 +42,16 @@ export default class AppView {
     move.className = 'icon-braille';
     canvasWrapper.appendChild(move);
 
-    const fieldPaint = document.querySelector('.field-paint');
+    const sectionBasicCanvas = document.querySelector('.wrapper-field-paint');
+    const wrapperPaint = document.createElement('div');
+    wrapperPaint.className = 'field-paint';
+    sectionBasicCanvas.insertBefore(wrapperPaint, sectionBasicCanvas.children[pastAfteElement]);
+
+
+    const fieldPaint = document.querySelectorAll('.field-paint');
     const canvasBasic = document.createElement('canvas');
     canvasBasic.id = 'canvas-basic';
-    fieldPaint.appendChild(canvasBasic);
-
-    // Функция определения порядкового номера кадра
-    function numberFrame() {
-      const counterFrame = document.querySelectorAll('.counter');
-      counterFrame.forEach((el, index) => {
-        counterFrame[index].innerText = index + 1;
-      });
-    }
-
-    doubleFile.addEventListener('click', () => {
-      drawWrapperCanvas();
-      numberFrame();
-    });
+    fieldPaint[pastAfteElement].appendChild(canvasBasic);
   }
 
   drawInformationCanvac(element, size) {

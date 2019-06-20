@@ -27,10 +27,32 @@ h1 {
   justify-content: space-between;
 }
 
-.field-paint {
+.section-basic-canvas {
   width: 68%;
   background-color: #a0a0a0;
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.field-paint {
+  position: absolute;
+  height: 640px;
+  width: 640px;
+  background: url(/src/assets/img/background.png) repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper-field-paint {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.canvas-background {
+  background: url(/src/assets/img/background.png) repeat;
 }
 
 .animation {
@@ -104,25 +126,17 @@ h1 {
   background-color: #1d1d1d;
   margin: 1px;
   display: flex;
+  cursor: pointer;
 }
 
 .img-pen, .img-write, .img-paint, .img-eraser, .img-checkbox, .img-blank-circle, .img-hand, .img-pipette, .img-maximaze  {
   margin: auto auto;
 }
 
-.field-paint {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 #canvas-basic {
-  background-color: #555555;
-  /* margin-top: 300px; */
-  /* height: 128px;
-  width: 128px; */
  Image-rendering:pixelated;
  position: absolute;
+
 }
 
 .first-current-color {
@@ -130,7 +144,6 @@ h1 {
   height: 50px;
   border: none;
   padding: 0;
-  /* background-color: none; */
   z-index: 1;
 }
 
@@ -139,7 +152,6 @@ h1 {
   height: 50px;
   border: none;
   padding: 0;
-  /* background-color: none; */
   margin-left: 30px;
   margin-top: -20px;
 }
@@ -158,6 +170,7 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
 }
 
 .canvas-mini {
@@ -166,6 +179,7 @@ h1 {
   margin: auto auto;
   background-color: white;
   Image-rendering:pixelated;
+  background: url(/src/assets/img/background.png) repeat;
 }
 
 .canvas-wrapper {
@@ -175,6 +189,7 @@ h1 {
   position: relative;
   margin: 10px auto;
   border: 1px solid black;
+  position: relative;
 }
 
 .counter {
@@ -189,7 +204,7 @@ h1 {
   width: 170px;
 }
 
-.wrapper-animation {
+.wrapper-field-animation {
   width: 200px;
   height: 200px;
   background-color: #cccccc;
@@ -197,11 +212,16 @@ h1 {
   margin: 0 auto;
 }
 
+.wrapper-canvas-animation {
+  position: relative;
+}
+
 .canvas-animation {
   width: 200px;
   height: 200px;
   border: 1px solid black;
   Image-rendering:pixelated;
+  background: url(/src/assets/img/background.png) repeat;
 }
 
 .canvas-animation:fullscreen {
@@ -257,6 +277,7 @@ input[type='text'] {
  border: none;
  background-color: #1d1d1d;
  display: flex;
+ cursor: pointer;
 }
 
 .wrapper {
