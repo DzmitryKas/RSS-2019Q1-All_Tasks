@@ -21,6 +21,7 @@ export default class App {
     let zindex = 1;
     let scale = 5;
     let widthCanvas = 128;
+    let myColor = 'black';
 
     view.drawInformationCanvac(element, widthCanvas);
     view.resizeCanvas(element, scale, widthCanvas);
@@ -30,7 +31,6 @@ export default class App {
     i1.value = `${rng.value} fps`;
 
     const colorCurrent = document.querySelector('.first-current-color');
-    let myColor = 'black';
     colorCurrent.addEventListener('input', function () {
       myColor = this.value;
       model.drawPen(ctxWidth, myColor, element);
@@ -51,7 +51,6 @@ export default class App {
     document.querySelector('.add-frame').addEventListener('click', () => {
       const menuFrame = document.querySelector('.menu-frame');
       element = menuFrame.children.length - 1;
-      console.log('menuFrame.children[element]', menuFrame.children[element]);
       view.drawWrapperCanvas(element);
 
       view.resizeCanvas(element, scale, widthCanvas);
@@ -174,6 +173,62 @@ export default class App {
       widthCanvas = 128;
       view.resizeCanvas(element, scale, widthCanvas);
       view.drawInformationCanvac(element, widthCanvas);
+    });
+
+    document.querySelector('.save-in-gif').addEventListener('click', () => {
+      const arrayCanvas = document.querySelectorAll('.canvas-mini');
+      const gif = new GIF({
+        workers: 2,
+        quality: 10,
+      });
+
+      // add an image element
+      // gif.addFrame(imageElement);
+      // Array.from(arrayCanvas).forEach((el) => {
+      //   gif.addFrame(el, { delay: 20000 });
+      // });
+      console.log('gif', gif);
+      // or a canvas element
+      // gif.addFrame(canvasElement, { delay: 200 });
+      Array.from(arrayCanvas).forEach((el) => {
+        const ctx = el.getContext('2d');
+        gif.addFrame(ctx, { copy: true });
+      });
+
+      console.log('gif', gif);
+      // // or copy the pixels from a canvas context
+      // gif.addFrame(ctx, { copy: true });
+
+      gif.on('finished', (blob) => {
+        window.open(URL.createObjectURL(blob));
+      });
+
+      gif.render();
+    });
+    console.log('myColor', myColor);
+    document.querySelector('.img-paint').addEventListener('click', () => {
+      model.paintBucket(element, myColor);
+    });
+
+    document.querySelector('.img-pipette').addEventListener('click', () => {
+      console.log('myColor', myColor);
+      function rgbToHex(r, g, b) {
+        if (r > 255 || g > 255 || b > 255) { throw 'Invalid color component'; }
+        return ((r << 16) | (g << 8) | b).toString(16);
+      }
+      const canvasBasic = document.querySelectorAll('#canvas-basic');
+      canvasBasic[element].onmousedown = function onmousedown(event) {
+        const x = event.offsetX;
+        const y = event.offsetY;
+        const c = canvasBasic[element].getContext('2d');
+        const p = c.getImageData(x, y, 1, 1).data;
+
+        const hex = `#${(`000000${rgbToHex(p[0], p[1], p[2])}`).slice(-6)}`;
+        console.log(hex);
+        const color = document.querySelector('.first-current-color');
+        color.value = hex;
+        myColor = hex;
+      };
     });
   }
 }
