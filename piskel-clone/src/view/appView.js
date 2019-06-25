@@ -30,15 +30,15 @@ export default class AppView {
     counter.className = 'counter';
     canvasWrapper.appendChild(counter);
 
-    const basket = document.createElement('i');
+    const basket = document.createElement('div');
     basket.className = 'icon-trash';
     canvasWrapper.appendChild(basket);
 
-    const doubleFile = document.createElement('i');
+    const doubleFile = document.createElement('div');
     doubleFile.className = 'icon-docs';
     canvasWrapper.appendChild(doubleFile);
 
-    const move = document.createElement('i');
+    const move = document.createElement('div');
     move.className = 'icon-braille';
     canvasWrapper.appendChild(move);
 

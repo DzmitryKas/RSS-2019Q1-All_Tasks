@@ -247,7 +247,37 @@ export default class AppModel {
     };
   }
 
-  getColor(element) {
+  erasing(element) {
+    const canvasBasic = document.querySelectorAll('#canvas-basic');
+    console.log('canvasBasic', canvasBasic);
+    console.log('element', element);
+    const ctx = canvasBasic[element].getContext('2d');
 
+    canvasBasic[element].onmousedown = function onmousedown() {
+      canvasBasic[element].onmousemove = function onmousemove(e) {
+        const xd = e.offsetX;
+        const yd = e.offsetY;
+        ctx.clearRect(xd - 2, yd - 2, 4, 4);
+
+        function cloneCanvas() {
+          // create a new canvas
+          const newCanvas = document.querySelectorAll('.canvas-mini');
+          const newContext = newCanvas[element].getContext('2d');
+
+          const oldCanvas = document.querySelectorAll('#canvas-basic');
+
+          // set dimensions
+          newCanvas[element].width = oldCanvas[element].width;
+          newCanvas[element].height = oldCanvas[element].height;
+
+          // apply the old canvas to the new one
+          newContext.drawImage(oldCanvas[element], 0, 0);
+        }
+        cloneCanvas(element);
+      };
+      canvasBasic[element].onmouseup = function onmouseup() {
+        canvasBasic[element].onmousemove = null;
+      };
+    };
   }
 }

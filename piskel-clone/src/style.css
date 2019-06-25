@@ -55,18 +55,4 @@
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
 
-.icon-trash:before { content: '\e800'; } /* '' */
-.icon-plus:before { content: '\e801'; } /* '' */
-.icon-braille:before { content: '\e802'; } /* '' */
-.icon-pencil:before { content: '\e803'; } /* '' */
-.icon-menu:before { content: '\f008'; } /* '' */
-.icon-move:before { content: '\f047'; } /* '' */
-.icon-check-empty:before { content: '\f096'; } /* '' */
-.icon-docs:before { content: '\f0c5'; } /* '' */
-.icon-exchange:before { content: '\f0ec'; } /* '' */
-.icon-circle-empty:before { content: '\f10c'; } /* '' */
-.icon-eraser:before { content: '\f12d'; } /* '' */
-.icon-ellipsis-vert:before { content: '\f142'; } /* '' */
-.icon-eyedropper:before { content: '\f1fb'; } /* '' */
-.icon-brush:before { content: '\f1fc'; } /* '' */
-.icon-hand-paper-o:before { content: '\f256'; } /* '' */
+

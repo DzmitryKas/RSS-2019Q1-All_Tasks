@@ -21,14 +21,14 @@ h1 {
 }
 
 .tools-and-frames {
-  width: 15%;
+  width: 20%;
   background-color: #1d1d1d;
   display: flex;
   justify-content: space-between;
 }
 
 .section-basic-canvas {
-  width: 68%;
+  width: 63%;
   background-color: #a0a0a0;
   display: flex;
   justify-content: center;
@@ -61,7 +61,7 @@ h1 {
 }
 
 .tool-field {
-  width: 100px;
+  width: 110px;
   height: 510px;
   margin-left: 1px;
   margin-top: calc((100vh - 530px) / 2);
@@ -86,7 +86,7 @@ h1 {
   align-items: center;
 }
 
-.active, .wrapper-width:hover {
+.current-pencil, .wrapper-width:hover {
   border: 2px solid #ffd700;
 }
 
@@ -127,10 +127,47 @@ h1 {
   margin: 1px;
   display: flex;
   cursor: pointer;
+} 
+
+.pen {
+  background: url(/src/assets/img/pencil.png) center no-repeat;  
+}
+
+.line {
+  background: url(/src/assets/img/write.png) center no-repeat;  
+}
+
+.paint {
+  background: url(/src/assets/img/paint.png) center no-repeat;  
+}
+
+.eraser {
+  background: url(/src/assets/img/eraser.png) center no-repeat;  
+}
+
+.checkbox {
+  background: url(/src/assets/img/checkbox.png) center no-repeat;  
+}
+
+.blank-circle {
+  background: url(/src/assets/img/blank-circle.png) center no-repeat;  
+}
+
+.hand {
+  background: url(/src/assets/img/hand.png) center no-repeat;  
+}
+
+.pipette {
+  background: url(/src/assets/img/pipette.png) center no-repeat;  
 }
 
 .img-pen, .img-write, .img-paint, .img-eraser, .img-checkbox, .img-blank-circle, .img-hand, .img-pipette, .img-maximaze  {
   margin: auto auto;
+}
+
+.active {
+  box-sizing: border-box;
+  border: 2px solid gold;
 }
 
 #canvas-basic {
@@ -192,16 +229,25 @@ h1 {
   position: relative;
 }
 
-.counter {
-  width: 20px;
-  height: 20px;
-  background: #cccccc;
-  display: inline-block;
-}
-
 .menu-frame {
   justify-content: space-around;
   width: 170px;
+}
+
+.selected:after {
+  content: "";
+  position: absolute;
+  top: 53px;
+  right: -8px;
+  border: transparent 4px solid;
+  border-left-color: gold;
+  border-width: 6px 0 6px 6px;
+  border-style: solid;
+}
+
+.selected {
+  border: 2px solid  gold;
+  border-radius: 4px;
 }
 
 .wrapper-field-animation {
@@ -234,17 +280,21 @@ h1 {
 }
 
 input[type='text'] {
-  width: 40px;
-  /* margin-left: 50px; */
+  width: 40px; 
 }
 
 .icon-trash {
   position: absolute;
   top: 0;
   right: 0;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
 }
+/* 
+.canvas-mini:hover {
+  background: url(/src/assets/frame/frame-recyclebin-white.png) no-repeat;
+  background-position: right top;
+} */
 
 .icon-docs {
   position: absolute;
@@ -266,6 +316,13 @@ input[type='text'] {
   position: absolute;
   top: 0;
   left: 0;
+  background-color: gold;
+  border-radius: 4px;
+  width: 30px;
+  height: 30px;  
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .full-screen {

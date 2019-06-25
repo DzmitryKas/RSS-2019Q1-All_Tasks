@@ -19,7 +19,7 @@
     <section class="tools-and-frames">
       <div class="tool-field">
         <div class="pencil-width">
-          <div class="wrapper-width active">
+          <div class="wrapper-width current-pencil">
             <div class="small"></div>
           </div>
           <div class="wrapper-width">
@@ -33,14 +33,14 @@
           </div>
         </div>
         <div class="tools">
-          <div class="pen"><img class="img-pen" src="src/assets/img/pencil.png" alt="#"></div>
-          <div class="draw-line" ><img class="img-write" src="src/assets/img/write.png" alt="#"></div>
-          <div><img class="img-paint" src="src/assets/img/paint.png" alt="#"></div>
-          <div><img class="img-eraser" src="src/assets/img/eraser.png" alt="#"></div>
-          <div><img class="img-checkbox" src="src/assets/img/checkbox.png" alt="#"></div>
-          <div><img class="img-blank-circle" src="src/assets/img/blank-circle.png" alt="#"></div>
-          <div><img class="img-hand" src="src/assets/img/hand.png" alt="#"></div>
-          <div><img class="img-pipette" src="src/assets/img/pipette.png" alt="#"></div>
+          <div class="pen active"></div>
+          <div class="line" ></div>
+          <div class="paint"></div>
+          <div class="eraser"></div>
+          <div class="checkbox"></div>
+          <div class="blank-circle"></div>
+          <div class="hand"></div>
+          <div class="pipette"></div>
           <div></div>
           <div></div>
           <div></div>
@@ -55,12 +55,12 @@
         </div>
       </div>
       <div class="menu-frame">
-        <div class="canvas-wrapper">
+        <div class="canvas-wrapper selected">
           <canvas class="canvas-mini" width="128" height="128"></canvas>
           <div class="counter">1</div>
-          <i class="icon-trash"></i>
-          <i class="icon-docs"></i>
-          <i class="icon-braille"></i>
+          <div class="icon-trash"></div>
+          <div class="icon-docs"></div>
+          <div class="icon-braille"></div>
         </div>
         <button class="add-frame"><i class="icon-plus"></i><span>Add new frame</span></button>
       </section>
