@@ -89,7 +89,12 @@ export default class AppModel {
       ctx.lineWidth = lineWidth;
 
       canvasBasic[element].onmousemove = function onmousemove(e) {
+
+        ctx.save();
+        // ctx.clearRect(0, 0, canvasBasic[element].width, canvasBasic[element].height);
         ctx.beginPath();
+        console.log('ctx.width', canvasBasic[element].width);
+
         const xd = e.offsetX;
         const yd = e.offsetY;
         ctx.moveTo(x, y);
@@ -110,6 +115,8 @@ export default class AppModel {
           newContext.drawImage(oldCanvas[element], 0, 0);
         }
         cloneCanvas(element);
+
+        ctx.restore();
       };
       canvasBasic[element].onmouseup = function onmouseup() {
         canvasBasic[element].onmousemove = null;
@@ -169,88 +176,86 @@ export default class AppModel {
     });
   }
 
-  paintBucket(element) {
-    const canvasBasic = document.querySelectorAll('#canvas-basic');
-    // const context = canvasBasic[element].getContext('2d');
+  // paintBucket(element) {
+  //   const canvasBasic = document.querySelectorAll('#canvas-basic');
+  //   // const context = canvasBasic[element].getContext('2d');
 
-    // let imageData = context.getImageData(0, 0, canvasWidth, canvasHeight);
+  //   // let imageData = context.getImageData(0, 0, canvasWidth, canvasHeight);
 
-    canvasBasic[element].onmousedown = function onmousedown(e) {
-      function matchStartColor(pixelPos) {
-        const r = colorLayer.data[pixelPos];
-        const g = colorLayer.data[pixelPos + 1];
-        const b = colorLayer.data[pixelPos + 2];
+  //   canvasBasic[element].onmousedown = function onmousedown(e) {
+  //     function matchStartColor(pixelPos) {
+  //       const r = colorLayer.data[pixelPos];
+  //       const g = colorLayer.data[pixelPos + 1];
+  //       const b = colorLayer.data[pixelPos + 2];
 
-        return (r === startR && g === startG && b === startB);
-      }
+  //       return (r === startR && g === startG && b === startB);
+  //     }
 
-      function colorPixel(pixelPos) {
-        colorLayer.data[pixelPos] = fillColorR;
-        colorLayer.data[pixelPos + 1] = fillColorG;
-        colorLayer.data[pixelPos + 2] = fillColorB;
-        colorLayer.data[pixelPos + 3] = 255;
-      }
-      const startX = e.offsetX;
-      const startY = e.offsetY;
-      const canvasWidth = canvasBasic[element].width;
-      const canvasHeight = canvasBasic[element].height;
-      const pixelStack = [[startX, startY]];
+  //     function colorPixel(pixelPos) {
+  //       colorLayer.data[pixelPos] = fillColorR;
+  //       colorLayer.data[pixelPos + 1] = fillColorG;
+  //       colorLayer.data[pixelPos + 2] = fillColorB;
+  //       colorLayer.data[pixelPos + 3] = 255;
+  //     }
+  //     const startX = e.offsetX;
+  //     const startY = e.offsetY;
+  //     const canvasWidth = canvasBasic[element].width;
+  //     const canvasHeight = canvasBasic[element].height;
+  //     const pixelStack = [[startX, startY]];
 
-      while (pixelStack.length) {
-        let newPos;
-        let x;
-        let y;
-        let pixelPos;
-        let reachLeft;
-        let reachRight;
-        newPos = pixelStack.pop();
-        x = newPos[0];
-        y = newPos[1];
+  //     while (pixelStack.length) {
+  //       let newPos;
+  //       let x;
+  //       let y;
+  //       let pixelPos;
+  //       let reachLeft;
+  //       let reachRight;
+  //       newPos = pixelStack.pop();
+  //       x = newPos[0];
+  //       y = newPos[1];
 
-        pixelPos = (y * canvasWidth + x) * 4;
-        while (y-- >= 0 && matchStartColor(pixelPos)) {
-          pixelPos -= canvasWidth * 4;
-        }
-        pixelPos += canvasWidth * 4;
-        ++y;
-        reachLeft = false;
-        reachRight = false;
-        while (y++ < canvasHeight - 1 && matchStartColor(pixelPos)) {
-          colorPixel(pixelPos);
+  //       pixelPos = (y * canvasWidth + x) * 4;
+  //       while (y-- >= 0 && matchStartColor(pixelPos)) {
+  //         pixelPos -= canvasWidth * 4;
+  //       }
+  //       pixelPos += canvasWidth * 4;
+  //       ++y;
+  //       reachLeft = false;
+  //       reachRight = false;
+  //       while (y++ < canvasHeight - 1 && matchStartColor(pixelPos)) {
+  //         colorPixel(pixelPos);
 
-          if (x > 0) {
-            if (matchStartColor(pixelPos - 4)) {
-              if (!reachLeft) {
-                pixelStack.push([x - 1, y]);
-                reachLeft = true;
-              }
-            } else if (reachLeft) {
-              reachLeft = false;
-            }
-          }
+  //         if (x > 0) {
+  //           if (matchStartColor(pixelPos - 4)) {
+  //             if (!reachLeft) {
+  //               pixelStack.push([x - 1, y]);
+  //               reachLeft = true;
+  //             }
+  //           } else if (reachLeft) {
+  //             reachLeft = false;
+  //           }
+  //         }
 
-          if (x < canvasWidth - 1) {
-            if (matchStartColor(pixelPos + 4)) {
-              if (!reachRight) {
-                pixelStack.push([x + 1, y]);
-                reachRight = true;
-              }
-            } else if (reachRight) {
-              reachRight = false;
-            }
-          }
+  //         if (x < canvasWidth - 1) {
+  //           if (matchStartColor(pixelPos + 4)) {
+  //             if (!reachRight) {
+  //               pixelStack.push([x + 1, y]);
+  //               reachRight = true;
+  //             }
+  //           } else if (reachRight) {
+  //             reachRight = false;
+  //           }
+  //         }
 
-          pixelPos += canvasWidth * 4;
-        }
-      }
-      context.putImageData(colorLayer, 0, 0);
-    };
-  }
+  //         pixelPos += canvasWidth * 4;
+  //       }
+  //     }
+  //     context.putImageData(colorLayer, 0, 0);
+  //   };
+  // }
 
   erasing(element) {
     const canvasBasic = document.querySelectorAll('#canvas-basic');
-    console.log('canvasBasic', canvasBasic);
-    console.log('element', element);
     const ctx = canvasBasic[element].getContext('2d');
 
     canvasBasic[element].onmousedown = function onmousedown() {

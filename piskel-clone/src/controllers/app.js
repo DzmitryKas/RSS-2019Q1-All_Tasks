@@ -3,6 +3,7 @@
 
 import AppModel from '../models/appModels';
 import AppView from '../view/appView';
+// import GIF from './gif';
 
 export default class App {
   constructor(value) {
@@ -22,6 +23,7 @@ export default class App {
     let scale = 5;
     let widthCanvas = 128;
     let myColor = 'black';
+    let mySecondColor = 'black';
 
     view.drawInformationCanvac(element, widthCanvas);
     view.resizeCanvas(element, scale, widthCanvas);
@@ -31,16 +33,16 @@ export default class App {
     i1.value = `${rng.value} fps`;
 
     const colorCurrentFirst = document.querySelector('.first-current-color');
-    colorCurrentFirst.addEventListener('input', function () {
+    colorCurrentFirst.addEventListener('input', function selectionColor() {
       myColor = this.value;
       model.drawPen(ctxWidth, myColor, element);
     });
 
     const colorCurrentSecond = document.querySelector('.second-current-color');
-    colorCurrentSecond.addEventListener('contextmenu', function (event) {
-      event.preventDefault()
-      myColor = this.value;
-      model.drawPen(ctxWidth, myColor, element);
+    colorCurrentSecond.addEventListener('contextmenu', function selectionSecondColor(event) {
+      event.preventDefault();
+      mySecondColor = this.value;
+      model.drawPen(ctxWidth, mySecondColor, element);
     });
 
 
@@ -55,7 +57,7 @@ export default class App {
       model.erasing(element);
     });
 
-    window.onload = function () {
+    window.onload = () => {
       model.drawPen(ctxWidth, myColor, element);
     };
 
@@ -83,6 +85,7 @@ export default class App {
       canvasWrapper[element].className += ' selected';
       const arrayCanvasBasic = document.querySelectorAll('.field-paint');
       Array.from(arrayCanvasBasic).forEach((elCanvas) => {
+        // eslint-disable-next-line no-param-reassign
         elCanvas[element].style.zIndex = zindex;
         zindex += 1;
       });
@@ -134,8 +137,9 @@ export default class App {
     const btns = btnContainer.getElementsByClassName('wrapper-width');
 
     // Loop through the buttons and add the active class to the current/clicked button
-    for (let i = 0; i < btns.length; i++) {
-      btns[i].addEventListener('click', function () {
+    for (let i = 0; i < btns.length; i += 1) {
+      // eslint-disable-next-line no-loop-func
+      btns[i].addEventListener('click', function backlight() {
         ctxWidth = i + 1;
         model.drawPen(ctxWidth, myColor, element);
         const current = document.getElementsByClassName('current-pencil');
@@ -207,6 +211,7 @@ export default class App {
           element = index;
           Array.from(arrayCanvasBasic).forEach((elCanvas, index1) => {
             if (index === index1) {
+              // eslint-disable-next-line no-param-reassign
               elCanvas.style.zIndex = zindex;
               zindex += 1;
             }
@@ -241,45 +246,38 @@ export default class App {
       view.drawInformationCanvac(element, widthCanvas);
     });
 
-    document.querySelector('.save-in-gif').addEventListener('click', () => {
-      const arrayCanvas = document.querySelectorAll('.canvas-mini');
-      const gif = new GIF({
-        workers: 2,
-        quality: 10,
-      });
+    // document.querySelector('.save-in-gif').addEventListener('click', () => {
+    //   const arrayCanvas = document.querySelectorAll('.canvas-mini');
+    //   const gif = new GIF({
+    //     workers: 2,
+    //     quality: 10,
+    //   });
 
-      // add an image element
-      // gif.addFrame(imageElement);
-      // Array.from(arrayCanvas).forEach((el) => {
-      //   gif.addFrame(el, { delay: 20000 });
-      // });
-      console.log('gif', gif);
-      // or a canvas element
-      // gif.addFrame(canvasElement, { delay: 200 });
-      Array.from(arrayCanvas).forEach((el) => {
-        const ctx = el.getContext('2d');
-        gif.addFrame(ctx, { copy: true });
-      });
+    //   Array.from(arrayCanvas).forEach((el) => {
+    //     gif.addFrame(el, { delay: 2000 });
+    //   });
 
-      console.log('gif', gif);
-      // // or copy the pixels from a canvas context
-      // gif.addFrame(ctx, { copy: true });
+    //   Array.from(arrayCanvas).forEach((el) => {
+    //     const ctx1 = el.getContext('2d');
+    //     gif.addFrame(ctx1, { copy: true });
+    //   });
 
-      gif.on('finished', (blob) => {
-        window.open(URL.createObjectURL(blob));
-      });
+    //   gif.on('finished', (blob) => {
+    //     window.open(URL.createObjectURL(blob));
+    //   });
 
-      gif.render();
-    });
-    console.log('myColor', myColor);
+    //   gif.render();
+    // });
+
     document.querySelector('.paint').addEventListener('click', () => {
       model.paintBucket(element, myColor);
     });
 
     document.querySelector('.pipette').addEventListener('click', () => {
-      console.log('myColor', myColor);
       function rgbToHex(r, g, b) {
+        // eslint-disable-next-line no-throw-literal
         if (r > 255 || g > 255 || b > 255) { throw 'Invalid color component'; }
+        // eslint-disable-next-line no-bitwise
         return ((r << 16) | (g << 8) | b).toString(16);
       }
       const canvasBasic = document.querySelectorAll('#canvas-basic');

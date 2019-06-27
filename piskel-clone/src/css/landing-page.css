@@ -1,0 +1,41 @@
+body {
+  background: url(/src/assets/img/background.png) repeat;
+  background-color: aqua;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+/*
+a {
+  height: 20px;
+  width: 100px;
+} */
+
+.button {
+  display: block;
+  margin-bottom: 10px;
+  background: #fc5047;
+    padding: 7px 50px;
+    line-height: 40px;
+    display: inline-block;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    border-radius: 27px;
+    font-family: "Roboto Slab",serif;
+    font-size: 15px;
+    color: #FFF;
+    text-decoration: none;
+    font-size: 16px
+}
+
+.banner-button:hover, .hover {
+  background: #ff0000!important;
+}
+
+.disable {
+  background: #f0f0f0!important;
+  color: #d3d3d3;
+  cursor: default;
+}

@@ -127,38 +127,38 @@ h1 {
   margin: 1px;
   display: flex;
   cursor: pointer;
-} 
+}
 
 .pen {
-  background: url(/src/assets/img/pencil.png) center no-repeat;  
+  background: url(/src/assets/img/pencil.png) center no-repeat;
 }
 
 .line {
-  background: url(/src/assets/img/write.png) center no-repeat;  
+  background: url(/src/assets/img/write.png) center no-repeat;
 }
 
 .paint {
-  background: url(/src/assets/img/paint.png) center no-repeat;  
+  background: url(/src/assets/img/paint.png) center no-repeat;
 }
 
 .eraser {
-  background: url(/src/assets/img/eraser.png) center no-repeat;  
+  background: url(/src/assets/img/eraser.png) center no-repeat;
 }
 
 .checkbox {
-  background: url(/src/assets/img/checkbox.png) center no-repeat;  
+  background: url(/src/assets/img/checkbox.png) center no-repeat;
 }
 
 .blank-circle {
-  background: url(/src/assets/img/blank-circle.png) center no-repeat;  
+  background: url(/src/assets/img/blank-circle.png) center no-repeat;
 }
 
 .hand {
-  background: url(/src/assets/img/hand.png) center no-repeat;  
+  background: url(/src/assets/img/hand.png) center no-repeat;
 }
 
 .pipette {
-  background: url(/src/assets/img/pipette.png) center no-repeat;  
+  background: url(/src/assets/img/pipette.png) center no-repeat;
 }
 
 .img-pen, .img-write, .img-paint, .img-eraser, .img-checkbox, .img-blank-circle, .img-hand, .img-pipette, .img-maximaze  {
@@ -280,7 +280,7 @@ h1 {
 }
 
 input[type='text'] {
-  width: 40px; 
+  width: 40px;
 }
 
 .icon-trash {
@@ -290,7 +290,7 @@ input[type='text'] {
   width: 30px;
   height: 30px;
 }
-/* 
+/*
 .canvas-mini:hover {
   background: url(/src/assets/frame/frame-recyclebin-white.png) no-repeat;
   background-position: right top;
@@ -319,7 +319,7 @@ input[type='text'] {
   background-color: gold;
   border-radius: 4px;
   width: 30px;
-  height: 30px;  
+  height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
