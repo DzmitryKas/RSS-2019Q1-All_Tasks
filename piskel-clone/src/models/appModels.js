@@ -36,8 +36,157 @@ export default class AppModel {
     contextCanvasBasic.drawImage(arrayCanvasBasic[index], 0, 0);
   }
 
+  static cloneCanvas(element) {
+    // create a new canvas
+    const newCanvas = document.querySelectorAll('.canvas-mini');
+    const newContext = newCanvas[element].getContext('2d');
 
-  drawPen(lineWidth, myColor, element) {
+    const oldCanvas = document.querySelectorAll('#canvas-basic');
+
+    // set dimensions
+    newCanvas[element].width = oldCanvas[element].width;
+    newCanvas[element].height = oldCanvas[element].height;
+
+    // apply the old canvas to the new one
+    newContext.drawImage(oldCanvas[element], 0, 0);
+  }
+
+
+  drawPen(lineWidth, myColor, element, mySecondColor) {
+    const canvasBasic = document.querySelectorAll('#canvas-basic');
+    const ctx = canvasBasic[element].getContext('2d');
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    canvasBasic[element].onmousedown = function onmousedown(event) {
+      let color = myColor;
+      if (event.button === 2) {
+        color = mySecondColor;
+      }
+
+      ctx.beginPath();
+      const x = event.offsetX;
+      const y = event.offsetY;
+      ctx.strokeStyle = color;
+      ctx.lineCap = 'round';
+      ctx.lineWidth = lineWidth;
+      ctx.moveTo(x, y);
+      canvasBasic[element].onmousemove = function onmousemove(e) {
+        const xd = e.offsetX;
+        const yd = e.offsetY;
+        ctx.lineTo(xd, yd);
+        ctx.stroke();
+        AppModel.cloneCanvas(element);
+      };
+      canvasBasic[element].onmouseup = function onmouseup() {
+        canvasBasic[element].onmousemove = null;
+      };
+    };
+  }
+
+  drawLine(lineWidth, myColor, element, mySecondColor) {
+    const canvasBasic = document.querySelectorAll('#canvas-basic');
+    const ctx = canvasBasic[element].getContext('2d');
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    canvasBasic[element].onmousedown = function onmousedown(event) {
+      let color = myColor;
+      if (event.button === 2) {
+        color = mySecondColor;
+      }
+      ctx.beginPath();
+      const x = event.offsetX;
+      const y = event.offsetY;
+      ctx.strokeStyle = color;
+      ctx.lineCap = 'round';
+      ctx.lineWidth = lineWidth;
+      const imageData = ctx.getImageData(0, 0, canvasBasic[element].width, canvasBasic[element].height);
+
+      canvasBasic[element].onmousemove = function onmousemove(e) {
+        ctx.putImageData(imageData, 0, 0);
+        ctx.beginPath();
+        const xd = e.offsetX;
+        const yd = e.offsetY;
+        ctx.moveTo(x, y);
+        ctx.lineTo(xd, yd);
+        ctx.stroke();
+        AppModel.cloneCanvas(element);
+      };
+      canvasBasic[element].onmouseup = function onmouseup() {
+        canvasBasic[element].onmousemove = null;
+      };
+    };
+  }
+
+  drawSquare(lineWidth, myColor, element) {
+    const canvasBasic = document.querySelectorAll('#canvas-basic');
+    const ctx = canvasBasic[element].getContext('2d');
+
+    canvasBasic[element].onmousedown = function onmousedown(event) {
+      ctx.beginPath();
+      const x = event.offsetX;
+      const y = event.offsetY;
+      ctx.strokeStyle = myColor;
+      ctx.lineCap = 'round';
+      ctx.lineWidth = lineWidth;
+      ctx.moveTo(x, y);
+      const imageData = ctx.getImageData(0, 0, canvasBasic[element].width, canvasBasic[element].height);
+      canvasBasic[element].onmousemove = function onmousemove(e) {
+        ctx.putImageData(imageData, 0, 0);
+        const xd = e.offsetX;
+        const yd = e.offsetY;
+        ctx.strokeRect(x, y, xd - x, yd - y);
+        AppModel.cloneCanvas(element);
+      };
+      canvasBasic[element].onmouseup = function onmouseup() {
+        canvasBasic[element].onmousemove = null;
+      };
+    };
+  }
+
+  drawEllipse(lineWidth, myColor, element) {
+    const canvasBasic = document.querySelectorAll('#canvas-basic');
+    const ctx = canvasBasic[element].getContext('2d');
+
+    canvasBasic[element].onmousedown = function onmousedown(event) {
+      ctx.beginPath();
+      const xs = event.offsetX;
+      const ys = event.offsetY;
+      ctx.strokeStyle = myColor;
+      ctx.lineCap = 'round';
+      ctx.lineWidth = lineWidth;
+      ctx.moveTo(xs, ys);
+      const imageData = ctx.getImageData(0, 0, canvasBasic[element].width, canvasBasic[element].height);
+      canvasBasic[element].onmousemove = function onmousemove(e) {
+        ctx.putImageData(imageData, 0, 0);
+        const xd = e.offsetX;
+        const yd = e.offsetY;
+        function drawEllipse(ctxS, x, y, w, h) {
+          const kappa = 0.5522848;
+          const ox = (w / 2) * kappa; // control point offset horizontal
+          const oy = (h / 2) * kappa; // control point offset vertical
+          const xe = x + w; // x-end
+          const ye = y + h; // y-end
+          const xm = x + w / 2; // x-middle
+          const ym = y + h / 2; // y-middle
+
+          ctxS.beginPath();
+          ctxS.moveTo(x, ym);
+          ctxS.bezierCurveTo(x, ym - oy, xm - ox, y, xm, y);
+          ctxS.bezierCurveTo(xm + ox, y, xe, ym - oy, xe, ym);
+          ctxS.bezierCurveTo(xe, ym + oy, xm + ox, ye, xm, ye);
+          ctxS.bezierCurveTo(xm - ox, ye, x, ym + oy, x, ym);
+          // ctx.closePath(); // not used correctly, see comments (use to close off open path)
+          ctx.stroke();
+        }
+
+        drawEllipse(ctx, xs, ys, xd - xs, yd - ys);
+        AppModel.cloneCanvas(element);
+      };
+      canvasBasic[element].onmouseup = function onmouseup() {
+        canvasBasic[element].onmousemove = null;
+      };
+    };
+  }
+
+  drawVerticalMirror(lineWidth, myColor, element) {
     const canvasBasic = document.querySelectorAll('#canvas-basic');
     const ctx = canvasBasic[element].getContext('2d');
 
@@ -54,21 +203,21 @@ export default class AppModel {
         const yd = e.offsetY;
         ctx.lineTo(xd, yd);
         ctx.stroke();
-        function cloneCanvas() {
-          // create a new canvas
-          const newCanvas = document.querySelectorAll('.canvas-mini');
-          const newContext = newCanvas[element].getContext('2d');
+        function symmetry() {
+          const razmer = parseInt(canvasBasic[element].height / 2);
+          for (let i = 0; i <= razmer; i++) {
+            const imgd = ctx.getImageData(0, i, canvasBasic[element].width, 1);
 
-          const oldCanvas = document.querySelectorAll('#canvas-basic');
+            const imgd1 = ctx.getImageData(0, (canvasBasic[element].height - i), canvasBasic[element].width, 1);
 
-          // set dimensions
-          newCanvas[element].width = oldCanvas[element].width;
-          newCanvas[element].height = oldCanvas[element].height;
+            ctx.putImageData(imgd, 0, (canvasBasic[element].height - i));
 
-          // apply the old canvas to the new one
-          newContext.drawImage(oldCanvas[element], 0, 0);
+            ctx.putImageData(imgd1, 0, i);
+          }
         }
-        cloneCanvas(element);
+        symmetry();
+
+        AppModel.cloneCanvas(element);
       };
       canvasBasic[element].onmouseup = function onmouseup() {
         canvasBasic[element].onmousemove = null;
@@ -76,53 +225,26 @@ export default class AppModel {
     };
   }
 
-  drawLine(lineWidth, myColor, element) {
+  moving(element) {
     const canvasBasic = document.querySelectorAll('#canvas-basic');
     const ctx = canvasBasic[element].getContext('2d');
 
     canvasBasic[element].onmousedown = function onmousedown(event) {
-      ctx.beginPath();
       const x = event.offsetX;
       const y = event.offsetY;
-      ctx.strokeStyle = myColor;
-      ctx.lineCap = 'round';
-      ctx.lineWidth = lineWidth;
-
+      const imageData = ctx.getImageData(0, 0, canvasBasic[element].width, canvasBasic[element].height);
       canvasBasic[element].onmousemove = function onmousemove(e) {
-
-        ctx.save();
-        // ctx.clearRect(0, 0, canvasBasic[element].width, canvasBasic[element].height);
-        ctx.beginPath();
-        console.log('ctx.width', canvasBasic[element].width);
-
         const xd = e.offsetX;
         const yd = e.offsetY;
-        ctx.moveTo(x, y);
-        ctx.lineTo(xd, yd);
-        ctx.stroke();
-        function cloneCanvas() {
-          // create a new canvas
-          const newCanvas = document.querySelectorAll('.canvas-mini');
-          const newContext = newCanvas[element].getContext('2d');
-
-          const oldCanvas = document.querySelectorAll('#canvas-basic');
-
-          // set dimensions
-          newCanvas[element].width = oldCanvas[element].width;
-          newCanvas[element].height = oldCanvas[element].height;
-
-          // apply the old canvas to the new one
-          newContext.drawImage(oldCanvas[element], 0, 0);
-        }
-        cloneCanvas(element);
-
-        ctx.restore();
+        ctx.putImageData(imageData, xd - x, yd - y);
+        AppModel.cloneCanvas(element);
       };
       canvasBasic[element].onmouseup = function onmouseup() {
         canvasBasic[element].onmousemove = null;
       };
     };
   }
+
 
   getFrames() {
     const arrayLinks = [];
@@ -176,83 +298,83 @@ export default class AppModel {
     });
   }
 
-  // paintBucket(element) {
-  //   const canvasBasic = document.querySelectorAll('#canvas-basic');
-  //   // const context = canvasBasic[element].getContext('2d');
+  paintBucket(element, color) {
+    const canvasBasic = document.querySelectorAll('#canvas-basic');
+    const context = canvasBasic[element].getContext('2d');
 
-  //   // let imageData = context.getImageData(0, 0, canvasWidth, canvasHeight);
+    // let imageData = context.getImageData(0, 0, canvasWidth, canvasHeight);
 
-  //   canvasBasic[element].onmousedown = function onmousedown(e) {
-  //     function matchStartColor(pixelPos) {
-  //       const r = colorLayer.data[pixelPos];
-  //       const g = colorLayer.data[pixelPos + 1];
-  //       const b = colorLayer.data[pixelPos + 2];
+    canvasBasic[element].onmousedown = function onmousedown(e) {
+      function matchStartColor(pixelPos) {
+        const r = colorLayer.data[pixelPos];
+        const g = colorLayer.data[pixelPos + 1];
+        const b = colorLayer.data[pixelPos + 2];
 
-  //       return (r === startR && g === startG && b === startB);
-  //     }
+        return (r === startR && g === startG && b === startB);
+      }
 
-  //     function colorPixel(pixelPos) {
-  //       colorLayer.data[pixelPos] = fillColorR;
-  //       colorLayer.data[pixelPos + 1] = fillColorG;
-  //       colorLayer.data[pixelPos + 2] = fillColorB;
-  //       colorLayer.data[pixelPos + 3] = 255;
-  //     }
-  //     const startX = e.offsetX;
-  //     const startY = e.offsetY;
-  //     const canvasWidth = canvasBasic[element].width;
-  //     const canvasHeight = canvasBasic[element].height;
-  //     const pixelStack = [[startX, startY]];
+      function colorPixel(pixelPos) {
+        colorLayer.data[pixelPos] = fillColorR;
+        colorLayer.data[pixelPos + 1] = fillColorG;
+        colorLayer.data[pixelPos + 2] = fillColorB;
+        colorLayer.data[pixelPos + 3] = 255;
+      }
+      const startX = e.offsetX;
+      const startY = e.offsetY;
+      const canvasWidth = canvasBasic[element].width;
+      const canvasHeight = canvasBasic[element].height;
+      const pixelStack = [[startX, startY]];
 
-  //     while (pixelStack.length) {
-  //       let newPos;
-  //       let x;
-  //       let y;
-  //       let pixelPos;
-  //       let reachLeft;
-  //       let reachRight;
-  //       newPos = pixelStack.pop();
-  //       x = newPos[0];
-  //       y = newPos[1];
+      while (pixelStack.length) {
+        let newPos;
+        let x;
+        let y;
+        let pixelPos;
+        let reachLeft;
+        let reachRight;
+        newPos = pixelStack.pop();
+        x = newPos[0];
+        y = newPos[1];
 
-  //       pixelPos = (y * canvasWidth + x) * 4;
-  //       while (y-- >= 0 && matchStartColor(pixelPos)) {
-  //         pixelPos -= canvasWidth * 4;
-  //       }
-  //       pixelPos += canvasWidth * 4;
-  //       ++y;
-  //       reachLeft = false;
-  //       reachRight = false;
-  //       while (y++ < canvasHeight - 1 && matchStartColor(pixelPos)) {
-  //         colorPixel(pixelPos);
+        pixelPos = (y * canvasWidth + x) * 4;
+        while (y-- >= 0 && matchStartColor(pixelPos)) {
+          pixelPos -= canvasWidth * 4;
+        }
+        pixelPos += canvasWidth * 4;
+        ++y;
+        reachLeft = false;
+        reachRight = false;
+        while (y++ < canvasHeight - 1 && matchStartColor(pixelPos)) {
+          colorPixel(pixelPos);
 
-  //         if (x > 0) {
-  //           if (matchStartColor(pixelPos - 4)) {
-  //             if (!reachLeft) {
-  //               pixelStack.push([x - 1, y]);
-  //               reachLeft = true;
-  //             }
-  //           } else if (reachLeft) {
-  //             reachLeft = false;
-  //           }
-  //         }
+          if (x > 0) {
+            if (matchStartColor(pixelPos - 4)) {
+              if (!reachLeft) {
+                pixelStack.push([x - 1, y]);
+                reachLeft = true;
+              }
+            } else if (reachLeft) {
+              reachLeft = false;
+            }
+          }
 
-  //         if (x < canvasWidth - 1) {
-  //           if (matchStartColor(pixelPos + 4)) {
-  //             if (!reachRight) {
-  //               pixelStack.push([x + 1, y]);
-  //               reachRight = true;
-  //             }
-  //           } else if (reachRight) {
-  //             reachRight = false;
-  //           }
-  //         }
+          if (x < canvasWidth - 1) {
+            if (matchStartColor(pixelPos + 4)) {
+              if (!reachRight) {
+                pixelStack.push([x + 1, y]);
+                reachRight = true;
+              }
+            } else if (reachRight) {
+              reachRight = false;
+            }
+          }
 
-  //         pixelPos += canvasWidth * 4;
-  //       }
-  //     }
-  //     context.putImageData(colorLayer, 0, 0);
-  //   };
-  // }
+          pixelPos += canvasWidth * 4;
+        }
+      }
+      context.putImageData(colorLayer, 0, 0);
+    };
+  }
 
   erasing(element) {
     const canvasBasic = document.querySelectorAll('#canvas-basic');
@@ -263,22 +385,7 @@ export default class AppModel {
         const xd = e.offsetX;
         const yd = e.offsetY;
         ctx.clearRect(xd - 2, yd - 2, 4, 4);
-
-        function cloneCanvas() {
-          // create a new canvas
-          const newCanvas = document.querySelectorAll('.canvas-mini');
-          const newContext = newCanvas[element].getContext('2d');
-
-          const oldCanvas = document.querySelectorAll('#canvas-basic');
-
-          // set dimensions
-          newCanvas[element].width = oldCanvas[element].width;
-          newCanvas[element].height = oldCanvas[element].height;
-
-          // apply the old canvas to the new one
-          newContext.drawImage(oldCanvas[element], 0, 0);
-        }
-        cloneCanvas(element);
+        AppModel.cloneCanvas(element);
       };
       canvasBasic[element].onmouseup = function onmouseup() {
         canvasBasic[element].onmousemove = null;

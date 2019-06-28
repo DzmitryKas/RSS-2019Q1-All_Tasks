@@ -161,6 +161,14 @@ h1 {
   background: url(/src/assets/img/pipette.png) center no-repeat;
 }
 
+.vertical-mirror-pen {
+  background: url(/src/assets/img/tool-vertical-mirror-pen.png) center no-repeat;
+}
+
+.full-screen {
+  background: url(/src/assets/img/maximaze.png) center no-repeat;
+}
+
 .img-pen, .img-write, .img-paint, .img-eraser, .img-checkbox, .img-blank-circle, .img-hand, .img-pipette, .img-maximaze  {
   margin: auto auto;
 }

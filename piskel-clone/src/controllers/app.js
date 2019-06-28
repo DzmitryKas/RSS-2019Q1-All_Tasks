@@ -35,34 +35,45 @@ export default class App {
     const colorCurrentFirst = document.querySelector('.first-current-color');
     colorCurrentFirst.addEventListener('input', function selectionColor() {
       myColor = this.value;
-      model.drawPen(ctxWidth, myColor, element);
     });
 
     const colorCurrentSecond = document.querySelector('.second-current-color');
-    colorCurrentSecond.addEventListener('contextmenu', function selectionSecondColor(event) {
-      event.preventDefault();
+    colorCurrentSecond.addEventListener('input', function selectionSecondColor() {
       mySecondColor = this.value;
-      model.drawPen(ctxWidth, mySecondColor, element);
     });
 
-
-    // view.drawKlektis(element, scale, widthCanvas);
     model.cloneCanvas(element);
 
     document.querySelector('.pen').addEventListener('click', () => {
-      model.drawPen(ctxWidth, myColor, element);
+      model.drawPen(ctxWidth, myColor, element, mySecondColor);
     });
 
     document.querySelector('.eraser').addEventListener('click', () => {
       model.erasing(element);
     });
 
+    document.querySelector('.checkbox').addEventListener('click', () => {
+      model.drawSquare(ctxWidth, myColor, element);
+    });
+
+    document.querySelector('.vertical-mirror-pen').addEventListener('click', () => {
+      model.drawVerticalMirror(ctxWidth, myColor, element);
+    });
+
+    document.querySelector('.blank-circle').addEventListener('click', () => {
+      model.drawEllipse(ctxWidth, myColor, element);
+    });
+
+    document.querySelector('.hand').addEventListener('click', () => {
+      model.moving(element);
+    });
+
     window.onload = () => {
-      model.drawPen(ctxWidth, myColor, element);
+      model.drawPen(ctxWidth, myColor, element, mySecondColor);
     };
 
     document.querySelector('.line').addEventListener('click', () => {
-      model.drawLine(ctxWidth, myColor, element);
+      model.drawLine(ctxWidth, myColor, element, mySecondColor);
     });
 
     const canvasWrapper = document.getElementsByClassName('canvas-wrapper');
@@ -106,7 +117,6 @@ export default class App {
       Array.from(allTools).forEach((el) => {
         if (e.target === el) {
           const current = document.getElementsByClassName('active');
-          console.log('current', current);
           if (current.length > 0) {
             current[0].className = current[0].className.replace(' active', '');
           }
