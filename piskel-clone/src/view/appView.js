@@ -56,13 +56,11 @@ export default class AppView {
 
   drawInformationCanvac(element, size) {
     const canvasBasic = document.querySelectorAll('#canvas-basic');
-
     canvasBasic[element].onmousemove = function onmousemove(e) {
       const xd = e.offsetX;
       const yd = e.offsetY;
-      document.querySelector('.coordinates').innerHTML = `${xd} ${yd}`;
+      document.querySelector('.coordinates').innerHTML = `[${xd},${yd}]`;
     };
-
     document.querySelector('.size-canvas').innerHTML = `${size}`;
   }
 }

@@ -11,6 +11,8 @@
   "author": "Dzmitry Kasperovich",
   "license": "ISC",
   "dependencies": {
+    "ccapture.js": "^1.1.0",
+    "gifencoder": "^2.0.1",
     "lodash": "^4.17.11"
   },
   "devDependencies": {

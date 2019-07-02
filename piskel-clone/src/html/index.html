@@ -33,21 +33,18 @@
           </div>
         </div>
         <div class="tools">
-          <div class="pen active"></div>
-          <div class="line" ></div>
-          <div class="paint"></div>
-          <div class="eraser"></div>
-          <div class="checkbox"></div>
-          <div class="blank-circle"></div>
-          <div class="hand"></div>
-          <div class="pipette"></div>
-          <div class="vertical-mirror-pen"></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
+          <div class="pen active" title="Pen tool (P)"></div>
+          <div class="line" title="Stroke tool (L)"></div>
+          <div class="paint" title="Paint bucket tool (B)"></div>
+          <div class="eraser" title="Eraser tool (E)"></div>
+          <div class="checkbox" title="Rectangle tool (R)"></div>
+          <div class="blank-circle" title="Circle tool (C)"></div>
+          <div class="hand" title="Move tool (M)"></div>
+          <div class="pipette" title="Color picker (O)"></div>
+          <div class="vertical-mirror-pen" title="Vertical mirror pen (V)"></div>
+          <div class="turn" title="Rotation (T)"></div>
+          <div class="reflection" title="Flip vertically (F)"></div>
+          <div class="paint-background" title="Paint bucket background tool (A)"></div>
         </div>
         <div class="current-color">
           <input type="color" class="first-current-color">
@@ -62,7 +59,10 @@
           <div class="icon-docs"></div>
           <div class="icon-braille"></div>
         </div>
-        <button class="add-frame"><i class="icon-plus"></i><span>Add new frame</span></button>
+        <div class="add-frame">
+          <div class="icon-plus"></div>
+          <div>Add new frame</div>
+        </div>
       </section>
     </section>
 <section class="section-basic-canvas">
@@ -71,11 +71,6 @@
           <canvas id="canvas-basic" width="128" height="128"></canvas>
       </div>
   </div>
-
-<div class="information-canvas">
-  <p class="size-canvas"></p>
-  <p class="coordinates"></p>
-</div>
 </section>
 <section class="animation">
   <div class="wrapper-field-animation">
@@ -87,10 +82,14 @@
       <input type="range" id="r1" min="1" max="24" step="1" />
     </div>
     <div class="full-screen"></div>
-    <button class="save-in-gif">save</button>
+
   </div>
+  <div class="information-canvas">
+      <p class="size-canvas"></p>
+      <p class="coordinates">[0,0]</p>
+    </div>
 </section>
-<div class="wrapper">
+<div class="wrapper-size">
   <div class="menu">
     <a href="#" class="menu-btn"></a>
     <nav class="menu-list">
@@ -100,11 +99,12 @@
     </nav>
   </div>
 </div>
+          <a class="btn-save" ></a>
   </main>
-<p></p>
-<!-- <script type="text/javascript" src="gif.js"></script></body> -->
-  <script type="text/javascript" src="main.bundle.js"></script></body>
-
-  <!-- <script type="text/javascript" src="gif.worker.js"></script></body> -->
+  <script type="text/javascript" src="gif.worker.js"></script>
+  <script type="text/javascript" src="LZWEncoder.js"></script>
+<script type="text/javascript" src="NeuQuant.js"></script>
+<script type="text/javascript" src="GIFEncoder.js"></script>
+<script type="text/javascript" src="b64.js"></script>
 </body>
 </html>

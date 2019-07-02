@@ -58,6 +58,7 @@ h1 {
 .animation {
   width: 17%;
   background-color: #1d1d1d;
+  position: relative;
 }
 
 .tool-field {
@@ -169,6 +170,18 @@ h1 {
   background: url(/src/assets/img/maximaze.png) center no-repeat;
 }
 
+.turn {
+  background: url(/src/assets/img/tool-rotate.png) center no-repeat;
+}
+
+.reflection {
+  background: url(/src/assets/img/tool-flip.png) center no-repeat;
+}
+
+.paint-background {
+  background: url(/src/assets/img/tool-colorswap.png) center no-repeat;
+}
+
 .img-pen, .img-write, .img-paint, .img-eraser, .img-checkbox, .img-blank-circle, .img-hand, .img-pipette, .img-maximaze  {
   margin: auto auto;
 }
@@ -206,15 +219,20 @@ h1 {
 }
 
 .add-frame {
-  width: 120px;
+  width: 100px;
   height: 50px;
   text-decoration: none;
   text-align: center;
   padding-left: 20px;
   margin: 20px auto;
-  display: flex;
   justify-content: space-between;
+  display: flex;
   align-items: center;
+  border: #888 solid 3px;
+  border-radius: 4px;
+  color: #888;
+  background-color: #222;
+  font-size: 13px;
   cursor: pointer;
 }
 
@@ -297,19 +315,22 @@ input[type='text'] {
   right: 0;
   width: 30px;
   height: 30px;
+  background: url(/src/assets/frame/frame-recyclebin-white.png);
 }
-/*
-.canvas-mini:hover {
-  background: url(/src/assets/frame/frame-recyclebin-white.png) no-repeat;
-  background-position: right top;
-} */
+
+.icon-plus {
+  width: 30px;
+  height: 30px;
+  background: url(/src/assets/frame/frame-plus-white.png);
+}
 
 .icon-docs {
   position: absolute;
   bottom: 0;
   right: 0;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
+  background: url(/src/assets/frame/frame-duplicate-white.png) repeat;
 }
 
 .icon-braille {
@@ -345,7 +366,7 @@ input[type='text'] {
  cursor: pointer;
 }
 
-.wrapper {
+.wrapper-size {
   position: relative;
   overflow-x: hidden;
 }
@@ -381,21 +402,38 @@ input[type='text'] {
 .menu-btn {
   width: 50px;
   height: 50px;
-  background-color: #333;
   position: absolute;
   right: 283px;
-  top: 30%;
+  top: 140px;
+  background: url('/src/assets/img/settings-resize-white.png') center;
+  background-color: #999;
+  cursor: pointer;
+}
+
+.btn-save {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  right: 5px;
+  top: 360px;
+  background: url('/src/assets/img/settings-save-white.png') center;
+  background-color: #999;
+  cursor: pointer;
 }
 
 .information-canvas {
   height: 100px;
   width: 100px;
   position: absolute;
-  right: 0;
+  left: 0;
   bottom: 0;
 }
 
 .size-canvas {
+  color: yellow;
+}
+
+.coordinates {
   color: yellow;
 }
 

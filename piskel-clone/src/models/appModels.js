@@ -1,3 +1,6 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-plusplus */
+/* eslint-disable max-len */
 /* eslint-disable class-methods-use-this */
 export default class AppModel {
   constructor(state) {
@@ -52,14 +55,16 @@ export default class AppModel {
   }
 
 
-  drawPen(lineWidth, myColor, element, mySecondColor) {
+  drawPen(lineWidth, element) {
     const canvasBasic = document.querySelectorAll('#canvas-basic');
     const ctx = canvasBasic[element].getContext('2d');
-    document.addEventListener('contextmenu', event => event.preventDefault());
+    // document.addEventListener('contextmenu', event => event.preventDefault());
     canvasBasic[element].onmousedown = function onmousedown(event) {
-      let color = myColor;
+      const colorCurrentFirst = document.querySelector('.first-current-color');
+      let color = colorCurrentFirst.value;
       if (event.button === 2) {
-        color = mySecondColor;
+        const colorCurrentSecond = document.querySelector('.second-current-color');
+        color = colorCurrentSecond.value;
       }
 
       ctx.beginPath();
@@ -82,14 +87,16 @@ export default class AppModel {
     };
   }
 
-  drawLine(lineWidth, myColor, element, mySecondColor) {
+  drawLine(lineWidth, element) {
     const canvasBasic = document.querySelectorAll('#canvas-basic');
     const ctx = canvasBasic[element].getContext('2d');
     document.addEventListener('contextmenu', event => event.preventDefault());
     canvasBasic[element].onmousedown = function onmousedown(event) {
-      let color = myColor;
+      const colorCurrentFirst = document.querySelector('.first-current-color');
+      let color = colorCurrentFirst.value;
       if (event.button === 2) {
-        color = mySecondColor;
+        const colorCurrentSecond = document.querySelector('.second-current-color');
+        color = colorCurrentSecond.value;
       }
       ctx.beginPath();
       const x = event.offsetX;
@@ -115,15 +122,21 @@ export default class AppModel {
     };
   }
 
-  drawSquare(lineWidth, myColor, element) {
+  drawSquare(lineWidth, element) {
     const canvasBasic = document.querySelectorAll('#canvas-basic');
     const ctx = canvasBasic[element].getContext('2d');
 
     canvasBasic[element].onmousedown = function onmousedown(event) {
+      const colorCurrentFirst = document.querySelector('.first-current-color');
+      let color = colorCurrentFirst.value;
+      if (event.button === 2) {
+        const colorCurrentSecond = document.querySelector('.second-current-color');
+        color = colorCurrentSecond.value;
+      }
       ctx.beginPath();
       const x = event.offsetX;
       const y = event.offsetY;
-      ctx.strokeStyle = myColor;
+      ctx.strokeStyle = color;
       ctx.lineCap = 'round';
       ctx.lineWidth = lineWidth;
       ctx.moveTo(x, y);
@@ -141,15 +154,21 @@ export default class AppModel {
     };
   }
 
-  drawEllipse(lineWidth, myColor, element) {
+  drawEllipse(lineWidth, element) {
     const canvasBasic = document.querySelectorAll('#canvas-basic');
     const ctx = canvasBasic[element].getContext('2d');
 
     canvasBasic[element].onmousedown = function onmousedown(event) {
+      const colorCurrentFirst = document.querySelector('.first-current-color');
+      let color = colorCurrentFirst.value;
+      if (event.button === 2) {
+        const colorCurrentSecond = document.querySelector('.second-current-color');
+        color = colorCurrentSecond.value;
+      }
       ctx.beginPath();
       const xs = event.offsetX;
       const ys = event.offsetY;
-      ctx.strokeStyle = myColor;
+      ctx.strokeStyle = color;
       ctx.lineCap = 'round';
       ctx.lineWidth = lineWidth;
       ctx.moveTo(xs, ys);
@@ -186,34 +205,31 @@ export default class AppModel {
     };
   }
 
-  drawVerticalMirror(lineWidth, myColor, element) {
+  drawVerticalMirror(lineWidth, element) {
     const canvasBasic = document.querySelectorAll('#canvas-basic');
     const ctx = canvasBasic[element].getContext('2d');
 
     canvasBasic[element].onmousedown = function onmousedown(event) {
+      const colorCurrentFirst = document.querySelector('.first-current-color');
+      let color = colorCurrentFirst.value;
+      if (event.button === 2) {
+        const colorCurrentSecond = document.querySelector('.second-current-color');
+        color = colorCurrentSecond.value;
+      }
       ctx.beginPath();
-      const x = event.offsetX;
-      const y = event.offsetY;
-      ctx.strokeStyle = myColor;
+      ctx.strokeStyle = color;
       ctx.lineCap = 'round';
       ctx.lineWidth = lineWidth;
-      ctx.moveTo(x, y);
       canvasBasic[element].onmousemove = function onmousemove(e) {
         const xd = e.offsetX;
         const yd = e.offsetY;
+        ctx.moveTo(xd, yd);
         ctx.lineTo(xd, yd);
         ctx.stroke();
         function symmetry() {
-          const razmer = parseInt(canvasBasic[element].height / 2);
-          for (let i = 0; i <= razmer; i++) {
-            const imgd = ctx.getImageData(0, i, canvasBasic[element].width, 1);
-
-            const imgd1 = ctx.getImageData(0, (canvasBasic[element].height - i), canvasBasic[element].width, 1);
-
-            ctx.putImageData(imgd, 0, (canvasBasic[element].height - i));
-
-            ctx.putImageData(imgd1, 0, i);
-          }
+          ctx.moveTo(canvasBasic[element].width - xd, yd);
+          ctx.lineTo(canvasBasic[element].width - xd, yd);
+          ctx.stroke();
         }
         symmetry();
 
@@ -299,58 +315,72 @@ export default class AppModel {
   }
 
   paintBucket(element, color) {
-    const canvasBasic = document.querySelectorAll('#canvas-basic');
-    const context = canvasBasic[element].getContext('2d');
+    const canvas = document.querySelectorAll('#canvas-basic');
+    const ctx = canvas[element].getContext('2d');
 
-    // let imageData = context.getImageData(0, 0, canvasWidth, canvasHeight);
+    function getPixelPos(x, y) {
+      return (y * canvas[element].width + x) * 4;
+    }
 
-    canvasBasic[element].onmousedown = function onmousedown(e) {
-      function matchStartColor(pixelPos) {
-        const r = colorLayer.data[pixelPos];
-        const g = colorLayer.data[pixelPos + 1];
-        const b = colorLayer.data[pixelPos + 2];
+    function hexToRgb(hex) {
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16),
+      } : null;
+    }
 
-        return (r === startR && g === startG && b === startB);
-      }
+    const colrRGBA = hexToRgb(color);
+    function matchStartColor(data, pos, startColor) {
+      return (data[pos] === startColor.r
+              && data[pos + 1] === startColor.g
+              && data[pos + 2] === startColor.b
+              && data[pos + 3] === startColor.a);
+    }
 
-      function colorPixel(pixelPos) {
-        colorLayer.data[pixelPos] = fillColorR;
-        colorLayer.data[pixelPos + 1] = fillColorG;
-        colorLayer.data[pixelPos + 2] = fillColorB;
-        colorLayer.data[pixelPos + 3] = 255;
-      }
-      const startX = e.offsetX;
-      const startY = e.offsetY;
-      const canvasWidth = canvasBasic[element].width;
-      const canvasHeight = canvasBasic[element].height;
-      const pixelStack = [[startX, startY]];
+    function colorPixel(dataPixel, pos, colorCurrent) {
+      dataPixel[pos] = colorCurrent.r || 0;
+      dataPixel[pos + 1] = colorCurrent.g || 0;
+      dataPixel[pos + 2] = colorCurrent.b || 0;
+      // eslint-disable-next-line no-prototype-builtins
+      dataPixel[pos + 3] = colorCurrent.hasOwnProperty('a') ? colorCurrent.a : 255;
+    }
 
-      while (pixelStack.length) {
-        let newPos;
-        let x;
-        let y;
-        let pixelPos;
-        let reachLeft;
-        let reachRight;
-        newPos = pixelStack.pop();
-        x = newPos[0];
-        y = newPos[1];
+    function floodFill(startX, startY, fillColor) {
+      const dstImg = ctx.getImageData(0, 0, canvas[element].width, canvas[element].height);
+      const dstData = dstImg.data;
+      const startPos = getPixelPos(startX, startY);
+      const startColor = {
+        r: dstData[startPos],
+        g: dstData[startPos + 1],
+        b: dstData[startPos + 2],
+        a: dstData[startPos + 3],
+      };
+      const todo = [[startX, startY]];
 
-        pixelPos = (y * canvasWidth + x) * 4;
-        while (y-- >= 0 && matchStartColor(pixelPos)) {
-          pixelPos -= canvasWidth * 4;
+      while (todo.length) {
+        const pos = todo.pop();
+        const x = pos[0];
+        let y = pos[1];
+        let currentPos = getPixelPos(x, y);
+
+        while ((y-- >= 0) && matchStartColor(dstData, currentPos, startColor)) {
+          currentPos -= canvas[element].width * 4;
         }
-        pixelPos += canvasWidth * 4;
+
+        currentPos += canvas[element].width * 4;
         ++y;
-        reachLeft = false;
-        reachRight = false;
-        while (y++ < canvasHeight - 1 && matchStartColor(pixelPos)) {
-          colorPixel(pixelPos);
+        let reachLeft = false;
+        let reachRight = false;
+
+        while ((y++ < canvas[element].height - 1) && matchStartColor(dstData, currentPos, startColor)) {
+          colorPixel(dstData, currentPos, fillColor);
 
           if (x > 0) {
-            if (matchStartColor(pixelPos - 4)) {
+            if (matchStartColor(dstData, currentPos - 4, startColor)) {
               if (!reachLeft) {
-                pixelStack.push([x - 1, y]);
+                todo.push([x - 1, y]);
                 reachLeft = true;
               }
             } else if (reachLeft) {
@@ -358,10 +388,10 @@ export default class AppModel {
             }
           }
 
-          if (x < canvasWidth - 1) {
-            if (matchStartColor(pixelPos + 4)) {
+          if (x < canvas[element].width - 1) {
+            if (matchStartColor(dstData, currentPos + 4, startColor)) {
               if (!reachRight) {
-                pixelStack.push([x + 1, y]);
+                todo.push([x + 1, y]);
                 reachRight = true;
               }
             } else if (reachRight) {
@@ -369,10 +399,18 @@ export default class AppModel {
             }
           }
 
-          pixelPos += canvasWidth * 4;
+          currentPos += canvas[element].width * 4;
         }
       }
-      context.putImageData(colorLayer, 0, 0);
+
+      ctx.putImageData(dstImg, 0, 0);
+      AppModel.cloneCanvas(element);
+    }
+
+    canvas[element].onclick = (e) => {
+      const startX = e.offsetX;
+      const startY = e.offsetY;
+      floodFill(startX, startY, colrRGBA);
     };
   }
 
@@ -391,5 +429,40 @@ export default class AppModel {
         canvasBasic[element].onmousemove = null;
       };
     };
+  }
+
+  getPicture(element) {
+    const canvasBasic = document.querySelectorAll('#canvas-basic');
+    const picture = canvasBasic[element].toDataURL();
+    const img = new Image();
+    img.src = picture;
+    return img;
+  }
+
+  turn(ctx, image, fromX, fromY, angle, element) {
+    ctx.clearRect(0, 0, image.width, image.height);
+    ctx.save();
+    ctx.translate(fromX + image.width / 2, fromY + image.height / 2);
+    ctx.rotate(angle);
+    ctx.translate(-(fromX + image.width / 2), -(fromY + image.height / 2));
+    ctx.drawImage(image, fromX, fromY);
+    ctx.restore();
+    AppModel.cloneCanvas(element);
+  }
+
+  reflection(context, canvasBasic, img, element) {
+    context.clearRect(0, 0, canvasBasic.width, canvasBasic.height);
+    context.save();
+    context.scale(-1, 1);
+    context.drawImage(img, 0, 0, canvasBasic.width * -1, canvasBasic.height);
+    context.restore();
+    AppModel.cloneCanvas(element);
+  }
+
+  paintBackground(myColor, context, canvasBasic, element) {
+    context.rect(0, 0, canvasBasic.width, canvasBasic.height);
+    context.fillStyle = myColor;
+    context.fill();
+    AppModel.cloneCanvas(element);
   }
 }

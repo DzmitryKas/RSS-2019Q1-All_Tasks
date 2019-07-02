@@ -1,16 +1,13 @@
+/* eslint-disable max-len */
+/* eslint-disable no-restricted-globals */
 /* eslint-disable no-console */
 /* eslint-disable class-methods-use-this */
 
 import AppModel from '../models/appModels';
 import AppView from '../view/appView';
-// import GIF from './gif';
+import GIF from './gif';
 
 export default class App {
-  constructor(value) {
-    this.value = value;
-  }
-
-
   start() {
     const model = new AppModel();
     const view = new AppView();
@@ -22,8 +19,8 @@ export default class App {
     let zindex = 1;
     let scale = 5;
     let widthCanvas = 128;
-    let myColor = 'black';
-    let mySecondColor = 'black';
+    let myColor = '#000000';
+    let mySecondColor = '#000000';
 
     view.drawInformationCanvac(element, widthCanvas);
     view.resizeCanvas(element, scale, widthCanvas);
@@ -45,35 +42,127 @@ export default class App {
     model.cloneCanvas(element);
 
     document.querySelector('.pen').addEventListener('click', () => {
-      model.drawPen(ctxWidth, myColor, element, mySecondColor);
+      model.drawPen(ctxWidth, element);
+    });
+
+    addEventListener('keydown', (event) => {
+      if (event.keyCode === 80) {
+        model.drawPen(ctxWidth, element);
+      }
     });
 
     document.querySelector('.eraser').addEventListener('click', () => {
       model.erasing(element);
     });
 
+    addEventListener('keydown', (event) => {
+      if (event.keyCode === 69) {
+        model.erasing(element);
+      }
+    });
+
     document.querySelector('.checkbox').addEventListener('click', () => {
-      model.drawSquare(ctxWidth, myColor, element);
+      model.drawSquare(ctxWidth, element);
+    });
+
+    addEventListener('keydown', (event) => {
+      if (event.keyCode === 82) {
+        model.drawSquare(ctxWidth, myColor, element);
+      }
     });
 
     document.querySelector('.vertical-mirror-pen').addEventListener('click', () => {
-      model.drawVerticalMirror(ctxWidth, myColor, element);
+      model.drawVerticalMirror(ctxWidth, element);
+    });
+
+    addEventListener('keydown', (event) => {
+      if (event.keyCode === 86) {
+        model.drawVerticalMirror(ctxWidth, element);
+      }
     });
 
     document.querySelector('.blank-circle').addEventListener('click', () => {
-      model.drawEllipse(ctxWidth, myColor, element);
+      model.drawEllipse(ctxWidth, element);
+    });
+
+    addEventListener('keydown', (event) => {
+      if (event.keyCode === 67) {
+        model.drawEllipse(ctxWidth, element);
+      }
     });
 
     document.querySelector('.hand').addEventListener('click', () => {
       model.moving(element);
     });
 
+    addEventListener('keydown', (event) => {
+      if (event.keyCode === 77) {
+        model.moving(element);
+      }
+    });
+
     window.onload = () => {
-      model.drawPen(ctxWidth, myColor, element, mySecondColor);
+      model.drawPen(ctxWidth, element);
     };
 
     document.querySelector('.line').addEventListener('click', () => {
-      model.drawLine(ctxWidth, myColor, element, mySecondColor);
+      model.drawLine(ctxWidth, element);
+    });
+
+    addEventListener('keydown', (event) => {
+      if (event.keyCode === 76) {
+        model.drawLine(ctxWidth, element);
+      }
+    });
+
+    document.querySelector('.turn').addEventListener('click', async () => {
+      const canvasBasic = document.querySelectorAll('#canvas-basic');
+      const context = canvasBasic[element].getContext('2d');
+      const deg = 90;
+      const img = await model.getPicture(element);
+      const rad = deg * Math.PI / 180;
+      model.turn(context, img, 0, 0, rad, element);
+    });
+
+    addEventListener('keydown', async (event) => {
+      if (event.keyCode === 84) {
+        const canvasBasic = document.querySelectorAll('#canvas-basic');
+        const context = canvasBasic[element].getContext('2d');
+        const deg = 90;
+        const img = await model.getPicture(element);
+        const rad = deg * Math.PI / 180;
+        model.turn(context, img, 0, 0, rad, element);
+      }
+    });
+
+    document.querySelector('.reflection').addEventListener('click', async () => {
+      const canvasBasic = document.querySelectorAll('#canvas-basic');
+      const context = canvasBasic[element].getContext('2d');
+      const img = await model.getPicture(element);
+      model.reflection(context, canvasBasic[element], img, element);
+    });
+
+    addEventListener('keydown', async (event) => {
+      if (event.keyCode === 70) {
+        const canvasBasic = document.querySelectorAll('#canvas-basic');
+        const context = canvasBasic[element].getContext('2d');
+        const img = await model.getPicture(element);
+        model.reflection(context, canvasBasic[element], img, element);
+      }
+    });
+
+    document.querySelector('.paint-background').addEventListener('click', () => {
+      const canvasBasic = document.querySelectorAll('#canvas-basic');
+      const context = canvasBasic[element].getContext('2d');
+      model.paintBackground(myColor, context, canvasBasic[element], element, mySecondColor);
+    });
+
+    addEventListener('keydown', (event) => {
+      if (event.keyCode === 65) {
+        const canvasBasic = document.querySelectorAll('#canvas-basic');
+        const context = canvasBasic[element].getContext('2d');
+        model.paintBackground(myColor, context, canvasBasic[element], element, mySecondColor);
+      }
     });
 
     const canvasWrapper = document.getElementsByClassName('canvas-wrapper');
@@ -88,6 +177,7 @@ export default class App {
       const arrayPicktures = model.getFrames();
       model.clearAnimation(timerID);
       timerID = model.animation(arrayPicktures, fps);
+      view.drawInformationCanvac(element, widthCanvas);
       const current = document.getElementsByClassName('selected');
 
       if (current.length > 0) {
@@ -126,17 +216,13 @@ export default class App {
     });
 
     const miniCanvasWrapper = document.querySelector('.menu-frame');
-    console.log('canvasWrapper', canvasWrapper);
     miniCanvasWrapper.addEventListener('click', (e) => {
       const arrayCanvas = document.querySelectorAll('.canvas-mini');
-      console.log('e.target', e.target);
       arrayCanvas.forEach((el, index) => {
         if (e.target === el) {
           const current = document.getElementsByClassName('selected');
-
           if (current.length > 0) {
             current[0].className = current[0].className.replace(' selected', '');
-            console.log('current[0]', current.length);
           }
           canvasWrapper[index].className += ' selected';
         }
@@ -151,7 +237,7 @@ export default class App {
       // eslint-disable-next-line no-loop-func
       btns[i].addEventListener('click', function backlight() {
         ctxWidth = i + 1;
-        model.drawPen(ctxWidth, myColor, element);
+        model.drawPen(ctxWidth, element);
         const current = document.getElementsByClassName('current-pencil');
         if (current.length > 0) {
           current[0].className = current[0].className.replace(' current-pencil', '');
@@ -200,6 +286,7 @@ export default class App {
       const arrayPicktures = model.getFrames();
       model.clearAnimation(timerID);
       timerID = model.animation(arrayPicktures, fps);
+      view.drawInformationCanvac(element, widthCanvas);
     });
 
     miniCanvasWrapper.addEventListener('click', (e) => {
@@ -209,6 +296,8 @@ export default class App {
           view.drawWrapperCanvas(index + 1);
           view.resizeCanvas(index + 1, scale, widthCanvas);
           model.copyCanvas(index);
+          model.numberFrame();
+          view.drawInformationCanvac(element, widthCanvas);
         }
       });
     });
@@ -256,28 +345,29 @@ export default class App {
       view.drawInformationCanvac(element, widthCanvas);
     });
 
-    // document.querySelector('.save-in-gif').addEventListener('click', () => {
-    //   const arrayCanvas = document.querySelectorAll('.canvas-mini');
-    //   const gif = new GIF({
-    //     workers: 2,
-    //     quality: 10,
-    //   });
-
-    //   Array.from(arrayCanvas).forEach((el) => {
-    //     gif.addFrame(el, { delay: 2000 });
-    //   });
-
-    //   Array.from(arrayCanvas).forEach((el) => {
-    //     const ctx1 = el.getContext('2d');
-    //     gif.addFrame(ctx1, { copy: true });
-    //   });
-
-    //   gif.on('finished', (blob) => {
-    //     window.open(URL.createObjectURL(blob));
-    //   });
-
-    //   gif.render();
-    // });
+    document.querySelector('.btn-save').addEventListener('click', () => {
+      const arrayCanvas = document.querySelectorAll('#canvas-basic');
+      const gif = new GIF({
+        workers: 2,
+        quality: 10,
+        workerScript: 'gif.worker.js',
+        repeat: 0,
+        width: 128,
+        height: 128,
+        delay: 1,
+      });
+      arrayCanvas.forEach((el) => {
+        gif.addFrame(el, { delay: 1000 });
+      });
+      gif.render();
+      gif.on('finished', (blob) => {
+        // const templink = document.createElement('a');
+        // templink.download = 'download.gif';
+        // templink.href = URL.createObjectURL(blob);
+        // templink.click();
+        window.open(URL.createObjectURL(blob));
+      });
+    });
 
     document.querySelector('.paint').addEventListener('click', () => {
       model.paintBucket(element, myColor);
@@ -298,7 +388,6 @@ export default class App {
         const p = c.getImageData(x, y, 1, 1).data;
 
         const hex = `#${(`000000${rgbToHex(p[0], p[1], p[2])}`).slice(-6)}`;
-        console.log(hex);
         const color = document.querySelector('.first-current-color');
         color.value = hex;
         myColor = hex;
