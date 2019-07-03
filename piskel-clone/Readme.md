@@ -14,7 +14,8 @@
 | Jun 24 | Jun 25 | 5h | add backlight of the current tool |
 | Jun 26 | Jun 27 | 3h | add landing page |
 | Jun 28 | Jun 28 | 3h | add to draw circle and square, add moving picture |
-| Jun 29 | Jun 29 | 3h | add to paint bucket |
-| Jun 30 | Jun 30 | 3h | add to flip canvas |
+| Jun 29 | Jun 29 | 4h | add to paint bucket |
+| Jun 30 | Jun 30 | 5h | add to flip canvas |
+| Jun 1 | Jun 3 | 12h | add to save in gif, delete mistakes |
 
-Total: 63h
+Total: 80h
