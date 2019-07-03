@@ -3,10 +3,6 @@
 /* eslint-disable max-len */
 /* eslint-disable class-methods-use-this */
 export default class AppModel {
-  constructor(state) {
-    this.state = state;
-  }
-
   cloneCanvas(element) {
     // create a new canvas
     const newCanvas = document.querySelectorAll('.canvas-mini');

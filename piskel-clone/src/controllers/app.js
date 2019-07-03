@@ -185,11 +185,8 @@ export default class App {
       }
       canvasWrapper[element].className += ' selected';
       const arrayCanvasBasic = document.querySelectorAll('.field-paint');
-      Array.from(arrayCanvasBasic).forEach((elCanvas) => {
-        // eslint-disable-next-line no-param-reassign
-        elCanvas[element].style.zIndex = zindex;
-        zindex += 1;
-      });
+      arrayCanvasBasic[arrayCanvasBasic.length - 1].style.zIndex = zindex;
+      zindex += 1;
     });
 
     document.getElementById('r1').addEventListener('input', () => {
@@ -348,24 +345,24 @@ export default class App {
     document.querySelector('.btn-save').addEventListener('click', () => {
       const arrayCanvas = document.querySelectorAll('#canvas-basic');
       const gif = new GIF({
+        background: '#ffffff',
         workers: 2,
         quality: 10,
-        workerScript: 'gif.worker.js',
         repeat: 0,
-        width: 128,
-        height: 128,
-        delay: 1,
+        width: widthCanvas,
+        height: widthCanvas,
+        delay: 1000 / fps,
       });
       arrayCanvas.forEach((el) => {
         gif.addFrame(el, { delay: 1000 });
       });
       gif.render();
       gif.on('finished', (blob) => {
-        // const templink = document.createElement('a');
-        // templink.download = 'download.gif';
-        // templink.href = URL.createObjectURL(blob);
-        // templink.click();
-        window.open(URL.createObjectURL(blob));
+        const templink = document.createElement('a');
+        templink.download = 'download.gif';
+        console.log('blob', blob);
+        templink.href = URL.createObjectURL(blob);
+        templink.click();
       });
     });
 

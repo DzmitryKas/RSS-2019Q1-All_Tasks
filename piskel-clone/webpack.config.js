@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: {
@@ -8,12 +9,9 @@ module.exports = {
   },
   output: {
     filename: '[name].bundle.js',
-    // chunkFilename: '[id].bundle_[chunkhash].js',
-    // sourceMapFilename: '[file].map',
     path: path.resolve(__dirname, 'dist/'),
-    // publicPath: 'dist/',
+
   },
-  // devtool: 'source-map',
   devServer: {
     publicPath: '/',
     contentBase: './',
@@ -31,34 +29,32 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.(png|jpg)$/,
-        include: path.join(__dirname, 'assets/img'),
-        loader: 'file-loader',
-      },
-      {
-        test: /\.(gif|png|jpg)$/,
-        loader: 'url-loader',
-        options: {
-          limit: 30000,
-          name: '[path][name].[ext]?[hash]',
-        },
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../',
+              hmr: process.env.NODE_ENV === 'development',
+            },
+          },
+          'css-loader',
+        ],
       },
     ],
   },
   plugins: [
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+    }),
     new HtmlWebpackPlugin({
       filename: 'landing-page.html',
       template: path.resolve(__dirname, 'src/html', 'landing-page.html'),
-      // template: 'src/html/landing-page.html',
       chunks: ['landing'],
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.resolve(__dirname, 'src/html', 'index.html'),
-      // template: 'src/html/index.html',
       chunks: ['main'],
     }),
   ],

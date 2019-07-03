@@ -1,9 +1,5 @@
 /* eslint-disable class-methods-use-this */
 export default class AppView {
-  constructor(state) {
-    this.state = state;
-  }
-
   resizeCanvas(element, scale, widthCanvas) {
     const canvasBasic = document.querySelectorAll('#canvas-basic');
 
@@ -59,8 +55,8 @@ export default class AppView {
     canvasBasic[element].onmousemove = function onmousemove(e) {
       const xd = e.offsetX;
       const yd = e.offsetY;
-      document.querySelector('.coordinates').innerHTML = `[${xd},${yd}]`;
+      document.querySelector('.coordinates').innerHTML = `[${xd}x${yd}]`;
     };
-    document.querySelector('.size-canvas').innerHTML = `${size}`;
+    document.querySelector('.size-canvas').innerHTML = `${size}x${size}`;
   }
 }

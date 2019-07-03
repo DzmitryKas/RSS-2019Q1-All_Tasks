@@ -8,7 +8,7 @@
 }
 
 h1 {
-  color:white;
+  color: white;
 }
 
 .header p {
@@ -63,7 +63,7 @@ h1 {
 
 .tool-field {
   width: 110px;
-  height: 510px;
+  height: 420px;
   margin-left: 1px;
   margin-top: calc((100vh - 530px) / 2);
   background-color: #a0a0a0;
@@ -87,7 +87,8 @@ h1 {
   align-items: center;
 }
 
-.current-pencil, .wrapper-width:hover {
+.current-pencil,
+.wrapper-width:hover {
   border: 2px solid #ffd700;
 }
 
@@ -182,7 +183,15 @@ h1 {
   background: url(/src/assets/img/tool-colorswap.png) center no-repeat;
 }
 
-.img-pen, .img-write, .img-paint, .img-eraser, .img-checkbox, .img-blank-circle, .img-hand, .img-pipette, .img-maximaze  {
+.img-pen,
+.img-write,
+.img-paint,
+.img-eraser,
+.img-checkbox,
+.img-blank-circle,
+.img-hand,
+.img-pipette,
+.img-maximaze {
   margin: auto auto;
 }
 
@@ -192,9 +201,8 @@ h1 {
 }
 
 #canvas-basic {
- Image-rendering:pixelated;
- position: absolute;
-
+  image-rendering: pixelated;
+  position: absolute;
 }
 
 .first-current-color {
@@ -241,7 +249,7 @@ h1 {
   height: 120px;
   margin: auto auto;
   background-color: white;
-  Image-rendering:pixelated;
+  image-rendering: pixelated;
   background: url(/src/assets/img/background.png) repeat;
 }
 
@@ -272,7 +280,7 @@ h1 {
 }
 
 .selected {
-  border: 2px solid  gold;
+  border: 2px solid gold;
   border-radius: 4px;
 }
 
@@ -292,7 +300,7 @@ h1 {
   width: 200px;
   height: 200px;
   border: 1px solid black;
-  Image-rendering:pixelated;
+  image-rendering: pixelated;
   background: url(/src/assets/img/background.png) repeat;
 }
 
@@ -305,7 +313,7 @@ h1 {
   justify-content: space-between;
 }
 
-input[type='text'] {
+input[type="text"] {
   width: 40px;
 }
 
@@ -341,7 +349,7 @@ input[type='text'] {
   height: 20px;
 }
 
-.counter{
+.counter {
   position: absolute;
   top: 0;
   left: 0;
@@ -360,10 +368,10 @@ input[type='text'] {
   top: 5px;
   height: 35px;
   width: 35px;
- border: none;
- background-color: #1d1d1d;
- display: flex;
- cursor: pointer;
+  border: none;
+  background-color: #1d1d1d;
+  display: flex;
+  cursor: pointer;
 }
 
 .wrapper-size {
@@ -373,7 +381,7 @@ input[type='text'] {
 .menu {
   position: fixed;
   right: 0;
-  top: 40%;
+  top: 280px;
   z-index: 99;
   width: 15%;
   height: 400px;
@@ -405,7 +413,7 @@ input[type='text'] {
   position: absolute;
   right: 283px;
   top: 140px;
-  background: url('/src/assets/img/settings-resize-white.png') center;
+  background: url(/src/assets/img/settings-resize-white.png) center;
   background-color: #999;
   cursor: pointer;
 }
@@ -414,9 +422,9 @@ input[type='text'] {
   width: 50px;
   height: 50px;
   position: absolute;
-  right: 5px;
+  right: 7px;
   top: 360px;
-  background: url('/src/assets/img/settings-save-white.png') center;
+  background: url("/src/assets/img/settings-save-white.png") center;
   background-color: #999;
   cursor: pointer;
 }
@@ -441,5 +449,3 @@ input[type='text'] {
   width: 46px;
   height: 46px;
 }
-
-
