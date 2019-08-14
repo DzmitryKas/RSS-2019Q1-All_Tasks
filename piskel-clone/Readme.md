@@ -19,3 +19,4 @@
 | Jun 1 | Jun 3 | 12h | add to save in gif, delete mistakes |
 
 Total: 80h
+ 
